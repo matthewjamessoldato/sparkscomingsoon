@@ -1,21 +1,15 @@
 /* ─────────────────────────────────────────────────────────────────────────
    /soon — Coming-soon holding page.
    ─────────────────────────────────────────────────────────────────────────
-   Single-screen page rendered against Sparks' dark base. Covers the site
-   chrome with `position: fixed; inset: 0; z-index: 9999` so the parent
-   layout's nav + footer don't bleed through — a coming-soon is a holding
-   page, not a sub-route of the marketing site.
+   Single-screen page rendered against Sparks' dark base with ambient glow,
+   film-grain texture, and staggered entrance animations.
 
-   Brand: Newsreader serif for the headline (mirrors the main landing's
-   "honest." treatment with the accent on the closing period), Inter for
-   chrome, accent `#d97757` for the CTA + period. No images, no extra
-   fonts — globals.css already loads what we need.
-
-   Metadata sets `robots: noindex` (see page.tsx). Flip when launching.
+   Brand: Newsreader serif for the headline + lede, Inter for chrome,
+   accent #d97757 for the CTA + period highlights. No images — the
+   atmosphere comes from CSS only.
    ───────────────────────────────────────────────────────────────────── */
 
-/* Cover the parent layout's nav + footer. A coming-soon page is the
-   whole page or it's nothing. */
+/* ── Shell ──────────────────────────────────────────────────────────── */
 .soon-shell {
   position: fixed;
   inset: 0;
@@ -27,106 +21,182 @@
   justify-content: center;
   padding: clamp(28px, 6vh, 56px) clamp(20px, 4vw, 48px);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
+/* ── Ambient glow ───────────────────────────────────────────────────── */
+.soon-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 60% 50% at 50% 42%,
+      rgba(217, 119, 87, 0.08) 0%,
+      rgba(217, 119, 87, 0.03) 40%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 50% 48%,
+      rgba(245, 239, 226, 0.025) 0%,
+      transparent 60%
+    );
+  animation: glowPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0%   { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* ── Film grain ─────────────────────────────────────────────────────── */
+.soon-grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  animation: grainDrift 0.5s steps(1) infinite;
+}
+
+@keyframes grainDrift {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-5%, -5%); }
+  40%  { transform: translate(3%, -8%); }
+  60%  { transform: translate(-7%, 2%); }
+  80%  { transform: translate(5%, 6%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ── Stage ──────────────────────────────────────────────────────────── */
 .soon-stage {
+  position: relative;
+  z-index: 1;
   width: min(100%, 640px);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 26px;
+  gap: 0;
 }
 
-.soon-kicker {
-  font-family: var(--font-inter), Inter, sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: rgba(245, 239, 226, 0.55);
-}
-
+/* ── Wordmark ───────────────────────────────────────────────────────── */
 .soon-wordmark {
   font-family: var(--font-newsreader), Newsreader, Georgia, serif;
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: rgba(245, 239, 226, 0.95);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: rgba(245, 239, 226, 0.6);
+  margin-bottom: 28px;
 }
 .soon-wordmark-dot {
   color: #d97757;
 }
 
+/* ── Decorative rule ────────────────────────────────────────────────── */
+.soon-rule {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d97757, transparent);
+  margin-bottom: 32px;
+  opacity: 0.6;
+}
+
+/* ── Headline ───────────────────────────────────────────────────────── */
 .soon-headline {
   font-family: var(--font-newsreader), Newsreader, Georgia, serif;
-  font-size: clamp(54px, 10vw, 96px);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
+  font-size: clamp(64px, 12vw, 120px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
   font-weight: 400;
-  margin: 0;
+  margin: 0 0 32px;
 }
 .soon-accent {
   color: #d97757;
 }
 
+/* ── Lede + sublede ─────────────────────────────────────────────────── */
 .soon-lede {
   font-family: var(--font-newsreader), Newsreader, Georgia, serif;
-  font-size: clamp(18px, 2.4vw, 22px);
-  line-height: 1.45;
-  color: rgba(245, 239, 226, 0.7);
-  max-width: 520px;
-  margin: 0;
+  font-size: clamp(17px, 2.2vw, 21px);
+  line-height: 1.55;
+  color: rgba(245, 239, 226, 0.55);
+  max-width: 460px;
+  margin: 0 0 6px;
 }
 
+.soon-sublede {
+  font-family: var(--font-newsreader), Newsreader, Georgia, serif;
+  font-size: clamp(17px, 2.2vw, 21px);
+  line-height: 1.55;
+  color: rgba(245, 239, 226, 0.8);
+  font-style: italic;
+  margin: 0 0 40px;
+}
+
+/* ── Form ───────────────────────────────────────────────────────────── */
 .soon-form {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  width: min(100%, 520px);
-  margin-top: 6px;
+  gap: 10px;
+  width: min(100%, 480px);
 }
+
 .soon-input {
   flex: 1;
   min-width: 0;
-  background: transparent;
-  border: 1px solid rgba(245, 239, 226, 0.2);
-  border-radius: var(--r-btn, 10px);
+  background: rgba(245, 239, 226, 0.04);
+  border: 1px solid rgba(245, 239, 226, 0.12);
+  border-radius: 10px;
   color: #f5efe2;
-  padding: 14px 18px;
+  padding: 15px 20px;
   font-family: var(--font-inter), Inter, sans-serif;
   font-size: 14px;
-  transition: border-color 120ms ease;
+  transition: border-color 200ms ease, background 200ms ease,
+              box-shadow 200ms ease;
 }
 .soon-input::placeholder {
-  color: rgba(245, 239, 226, 0.35);
+  color: rgba(245, 239, 226, 0.28);
 }
 .soon-input:focus {
   outline: none;
-  border-color: rgba(245, 239, 226, 0.5);
+  border-color: rgba(217, 119, 87, 0.5);
+  background: rgba(245, 239, 226, 0.06);
+  box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.08);
 }
 
 .soon-cta {
   background: #d97757;
   color: #0a0a0a;
   border: none;
-  border-radius: var(--r-btn, 10px);
-  padding: 14px 22px;
+  border-radius: 10px;
+  padding: 15px 28px;
   font-family: var(--font-inter), Inter, sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.16em;
+  font-size: 11px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
-  transition: filter 120ms ease;
+  transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
 }
 .soon-cta:hover {
-  filter: brightness(1.06);
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(217, 119, 87, 0.25);
+}
+.soon-cta:active {
+  transform: translateY(0);
 }
 .soon-cta:disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: default;
+  transform: none;
+  box-shadow: none;
 }
 
 .soon-error {
@@ -138,45 +208,85 @@
   text-align: left;
 }
 
+/* ── Success state ──────────────────────────────────────────────────── */
 .soon-success {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 20px 24px;
-  border: 1px solid rgba(217, 119, 87, 0.45);
-  border-radius: var(--r-btn, 10px);
+  gap: 10px;
+  padding: 24px 28px;
+  background: rgba(217, 119, 87, 0.06);
+  border: 1px solid rgba(217, 119, 87, 0.25);
+  border-radius: 12px;
   font-family: var(--font-newsreader), Newsreader, Georgia, serif;
-  width: min(100%, 520px);
+  width: min(100%, 480px);
   text-align: left;
+  animation: successIn 500ms ease both;
 }
 .soon-success-title {
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 500;
   color: #f5efe2;
 }
 .soon-success-body {
-  font-size: 14.5px;
-  color: rgba(245, 239, 226, 0.65);
-  line-height: 1.5;
-}
-
-.soon-micro {
-  font-family: var(--font-inter), Inter, sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: rgba(245, 239, 226, 0.42);
-  margin: 4px 0 0;
-  max-width: 360px;
+  font-size: 15px;
+  color: rgba(245, 239, 226, 0.6);
   line-height: 1.55;
 }
 
-/* ── Mobile: stack the form so the email field doesn't squeeze ───────── */
+@keyframes successIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Micro copy ─────────────────────────────────────────────────────── */
+.soon-micro {
+  font-family: var(--font-inter), Inter, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(245, 239, 226, 0.3);
+  margin-top: 20px;
+  max-width: 340px;
+  line-height: 1.65;
+}
+
+/* ── Entrance animations ────────────────────────────────────────────── */
+.anim-fade {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 800ms ease forwards;
+}
+.anim-d1 { animation-delay: 100ms; }
+.anim-d2 { animation-delay: 300ms; }
+.anim-d3 { animation-delay: 500ms; }
+.anim-d4 { animation-delay: 700ms; }
+.anim-d5 { animation-delay: 900ms; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────────── */
 @media (max-width: 540px) {
   .soon-form {
     flex-direction: column;
     gap: 10px;
   }
   .soon-cta {
-    padding: 14px 18px;
+    padding: 15px 20px;
+  }
+  .soon-headline {
+    margin-bottom: 24px;
+  }
+  .soon-sublede {
+    margin-bottom: 32px;
   }
 }
