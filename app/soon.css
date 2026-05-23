@@ -24,6 +24,52 @@
   overflow-x: hidden;
 }
 
+/* ── Background mosaic ─────────────────────────────────────────────── */
+.soon-mosaic {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 6px;
+  padding: 6px;
+  opacity: 0;
+  animation: mosaicIn 2.4s ease 400ms forwards;
+}
+
+.soon-mosaic-cell {
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.soon-mosaic-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.3) saturate(0.35);
+}
+
+/* heavy vignette so centre text pops */
+.soon-mosaic-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 50% 48% at 50% 46%,
+      rgba(5, 4, 3, 0.98) 0%,
+      rgba(5, 4, 3, 0.92) 30%,
+      rgba(5, 4, 3, 0.6) 60%,
+      rgba(5, 4, 3, 0.18) 100%
+    );
+}
+
+@keyframes mosaicIn {
+  to { opacity: 1; }
+}
+
 /* ── Ambient glow ───────────────────────────────────────────────────── */
 .soon-glow {
   position: fixed;
@@ -136,6 +182,35 @@
   color: rgba(245, 239, 226, 0.8);
   font-style: italic;
   margin: 0 0 40px;
+}
+
+/* ── Source-type strip ──────────────────────────────────────────────── */
+.soon-sources {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.soon-source-pill {
+  font-family: var(--font-inter), Inter, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(217, 119, 87, 0.7);
+  background: rgba(217, 119, 87, 0.06);
+  border: 1px solid rgba(217, 119, 87, 0.12);
+  border-radius: 999px;
+  padding: 6px 16px;
+  transition: color 200ms ease, background 200ms ease, border-color 200ms ease;
+}
+
+.soon-source-pill:hover {
+  color: rgba(217, 119, 87, 0.95);
+  background: rgba(217, 119, 87, 0.1);
+  border-color: rgba(217, 119, 87, 0.25);
 }
 
 /* ── Form ───────────────────────────────────────────────────────────── */
@@ -276,6 +351,23 @@
 
 /* ── Mobile ─────────────────────────────────────────────────────────── */
 @media (max-width: 540px) {
+  .soon-mosaic {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+  .soon-mosaic-cell img {
+    filter: brightness(0.22) saturate(0.3);
+  }
+  .soon-mosaic-vignette {
+    background:
+      radial-gradient(
+        ellipse 60% 45% at 50% 44%,
+        rgba(5, 4, 3, 0.99) 0%,
+        rgba(5, 4, 3, 0.94) 30%,
+        rgba(5, 4, 3, 0.65) 60%,
+        rgba(5, 4, 3, 0.15) 100%
+      );
+  }
   .soon-form {
     flex-direction: column;
     gap: 10px;
@@ -288,5 +380,13 @@
   }
   .soon-sublede {
     margin-bottom: 32px;
+  }
+  .soon-sources {
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .soon-source-pill {
+    font-size: 9px;
+    padding: 5px 12px;
   }
 }
