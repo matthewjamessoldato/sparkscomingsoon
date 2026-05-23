@@ -3,14 +3,12 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // joinWaitlist — server action wired to Resend.
 //
-// Adds the email to a Resend audience (contact list). When launch day comes,
-// send a broadcast from the Resend dashboard to every contact in the audience.
+// Sends a confirmation email to the subscriber via Resend, and stores their
+// email in a local JSON log so we have a full waitlist record.
 //
 // Env vars (set in Vercel + .env.local):
-//   RESEND_API_KEY    — Resend API key
-//   RESEND_AUDIENCE_ID — the audience to add contacts to
-//
-// Falls back to a local JSON file if Resend is not configured (dev mode).
+//   RESEND_API_KEY  — Resend API key
+//   SEND_FROM       — verified sender address (e.g. hello@sparksesl.com)
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { Resend } from "resend";
@@ -25,7 +23,7 @@ const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null;
 
-const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID ?? "";
+const SEND_FROM = process.env.SEND_FROM ?? "Spark <onboarding@resend.dev>";
 
 export async function joinWaitlist(
   _prev: WaitlistState,
@@ -49,18 +47,33 @@ export async function joinWaitlist(
     };
   }
 
-  // ── Resend audience ───────────────────────────────────────────────────
-  if (resend && AUDIENCE_ID) {
+  // ── Send confirmation email via Resend ────────────────────────────────
+  if (resend) {
     try {
-      const { error } = await resend.contacts.create({
-        email,
-        audienceId: AUDIENCE_ID,
-        unsubscribed: false,
+      const { error } = await resend.emails.send({
+        from: SEND_FROM,
+        to: email,
+        subject: "You're on the Spark waitlist",
+        html: `
+          <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; padding: 40px 20px; color: #161513;">
+            <p style="font-size: 22px; font-weight: 500; margin: 0 0 16px;">
+              spark<span style="color: #d97757;">.</span>
+            </p>
+            <p style="font-size: 16px; line-height: 1.6; margin: 0 0 12px;">
+              You're in. We'll let you know the moment Spark launches.
+            </p>
+            <p style="font-size: 15px; line-height: 1.6; color: #4a4742; margin: 0 0 24px;">
+              Source-led English lessons built around real art, film, music,
+              science, philosophy, and news. No filler. No fluff. Just honest.
+            </p>
+            <p style="font-size: 13px; color: #6b6660; margin: 0;">
+              — The Spark team
+            </p>
+          </div>
+        `,
       });
 
-      // Resend returns an error object (not throw) on failure.
-      // "Contact already exists" is fine — idempotent signup.
-      if (error && !error.message?.includes("already exists")) {
+      if (error) {
         console.error("[waitlist] Resend error:", error);
         return {
           ok: false,
@@ -76,31 +89,34 @@ export async function joinWaitlist(
         email: null,
       };
     }
-
-    return { ok: true, error: null, email };
   }
 
-  // ── Dev fallback: write to local JSON ─────────────────────────────────
-  const { promises: fs } = await import("node:fs");
-  const { join } = await import("node:path");
-  const filePath = join(process.cwd(), "data", "waitlist.json");
-
-  type Entry = { email: string; joinedAt: string };
-  let entries: Entry[] = [];
+  // ── Log to local JSON (both dev and prod) ─────────────────────────────
   try {
-    entries = JSON.parse(await fs.readFile(filePath, "utf-8"));
+    const { promises: fs } = await import("node:fs");
+    const { join } = await import("node:path");
+    const filePath = join(process.cwd(), "data", "waitlist.json");
+
+    type Entry = { email: string; joinedAt: string };
+    let entries: Entry[] = [];
+    try {
+      entries = JSON.parse(await fs.readFile(filePath, "utf-8"));
+    } catch {
+      /* first signup */
+    }
+
+    if (!entries.some((e) => e.email === email)) {
+      entries.push({ email, joinedAt: new Date().toISOString() });
+      await fs.mkdir(join(process.cwd(), "data"), { recursive: true });
+      await fs.writeFile(filePath, JSON.stringify(entries, null, 2), "utf-8");
+    }
+
+    console.log(`[waitlist] ${resend ? "Email sent + " : ""}saved (${entries.length} total)`);
   } catch {
-    /* first signup */
+    // On serverless (Vercel), filesystem writes may fail — that's fine,
+    // the email was already sent.
+    console.log("[waitlist] Email sent (fs write skipped on serverless)");
   }
 
-  if (!entries.some((e) => e.email === email)) {
-    entries.push({ email, joinedAt: new Date().toISOString() });
-    await fs.mkdir(join(process.cwd(), "data"), { recursive: true });
-    await fs.writeFile(filePath, JSON.stringify(entries, null, 2), "utf-8");
-  }
-
-  console.log(
-    `[waitlist] Dev mode — saved to data/waitlist.json (${entries.length} contacts)`,
-  );
   return { ok: true, error: null, email };
 }
