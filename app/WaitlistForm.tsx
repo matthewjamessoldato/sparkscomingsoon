@@ -20,7 +20,7 @@ export function WaitlistForm() {
       <div className="soon-success">
         <span className="soon-success-title">You're on the list.</span>
         <span className="soon-success-body">
-          We'll reach out to <strong>{state.email}</strong> the moment Spark
+          We'll reach out to <strong>{state.email}</strong> the moment Sparks
           launches. Keep an eye on your inbox.
         </span>
       </div>

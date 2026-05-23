@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Coming-soon holding page for Spark.
+// Coming-soon holding page for Sparks.
 //
 // Full-screen dark overlay. Newsreader serif headline mirrors the main
 // landing's "honest." treatment. Email capture wired to Resend audience.
@@ -16,7 +16,7 @@ export default function SoonPage() {
         <span className="soon-kicker">Coming Soon</span>
 
         <span className="soon-wordmark">
-          spark<span className="soon-wordmark-dot">.</span>
+          sparks<span className="soon-wordmark-dot">.</span>
         </span>
 
         <h1 className="soon-headline">

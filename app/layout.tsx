@@ -18,7 +18,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Coming Soon — Spark",
+  title: "Coming Soon — Sparks",
   description:
     "Source-led English lessons built around real art, film, music, science, philosophy, and news. Launching soon.",
   robots: { index: false, follow: false },

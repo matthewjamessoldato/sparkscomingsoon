@@ -1,7 +1,7 @@
 /* ─────────────────────────────────────────────────────────────────────────
    /soon — Coming-soon holding page.
    ─────────────────────────────────────────────────────────────────────────
-   Single-screen page rendered against Spark's dark base. Covers the site
+   Single-screen page rendered against Sparks' dark base. Covers the site
    chrome with `position: fixed; inset: 0; z-index: 9999` so the parent
    layout's nav + footer don't bleed through — a coming-soon is a holding
    page, not a sub-route of the marketing site.

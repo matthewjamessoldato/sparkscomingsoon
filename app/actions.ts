@@ -23,7 +23,7 @@ const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null;
 
-const SEND_FROM = process.env.SEND_FROM ?? "Spark <onboarding@resend.dev>";
+const SEND_FROM = process.env.SEND_FROM ?? "Sparks <onboarding@resend.dev>";
 
 export async function joinWaitlist(
   _prev: WaitlistState,
@@ -53,21 +53,21 @@ export async function joinWaitlist(
       const { error } = await resend.emails.send({
         from: SEND_FROM,
         to: email,
-        subject: "You're on the Spark waitlist",
+        subject: "You're on the Sparks waitlist",
         html: `
           <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; padding: 40px 20px; color: #161513;">
             <p style="font-size: 22px; font-weight: 500; margin: 0 0 16px;">
-              spark<span style="color: #d97757;">.</span>
+              sparks<span style="color: #d97757;">.</span>
             </p>
             <p style="font-size: 16px; line-height: 1.6; margin: 0 0 12px;">
-              You're in. We'll let you know the moment Spark launches.
+              You're in. We'll let you know the moment Sparks launches.
             </p>
             <p style="font-size: 15px; line-height: 1.6; color: #4a4742; margin: 0 0 24px;">
               Source-led English lessons built around real art, film, music,
               science, philosophy, and news. No filler. No fluff. Just honest.
             </p>
             <p style="font-size: 13px; color: #6b6660; margin: 0;">
-              — The Spark team
+              — The Sparks team
             </p>
           </div>
         `,
