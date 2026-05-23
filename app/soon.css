@@ -1,0 +1,182 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   /soon — Coming-soon holding page.
+   ─────────────────────────────────────────────────────────────────────────
+   Single-screen page rendered against Spark's dark base. Covers the site
+   chrome with `position: fixed; inset: 0; z-index: 9999` so the parent
+   layout's nav + footer don't bleed through — a coming-soon is a holding
+   page, not a sub-route of the marketing site.
+
+   Brand: Newsreader serif for the headline (mirrors the main landing's
+   "honest." treatment with the accent on the closing period), Inter for
+   chrome, accent `#d97757` for the CTA + period. No images, no extra
+   fonts — globals.css already loads what we need.
+
+   Metadata sets `robots: noindex` (see page.tsx). Flip when launching.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Cover the parent layout's nav + footer. A coming-soon page is the
+   whole page or it's nothing. */
+.soon-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #050403;
+  color: #f5efe2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(28px, 6vh, 56px) clamp(20px, 4vw, 48px);
+  overflow-y: auto;
+}
+
+.soon-stage {
+  width: min(100%, 640px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+}
+
+.soon-kicker {
+  font-family: var(--font-inter), Inter, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(245, 239, 226, 0.55);
+}
+
+.soon-wordmark {
+  font-family: var(--font-newsreader), Newsreader, Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: rgba(245, 239, 226, 0.95);
+}
+.soon-wordmark-dot {
+  color: #d97757;
+}
+
+.soon-headline {
+  font-family: var(--font-newsreader), Newsreader, Georgia, serif;
+  font-size: clamp(54px, 10vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  margin: 0;
+}
+.soon-accent {
+  color: #d97757;
+}
+
+.soon-lede {
+  font-family: var(--font-newsreader), Newsreader, Georgia, serif;
+  font-size: clamp(18px, 2.4vw, 22px);
+  line-height: 1.45;
+  color: rgba(245, 239, 226, 0.7);
+  max-width: 520px;
+  margin: 0;
+}
+
+.soon-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: min(100%, 520px);
+  margin-top: 6px;
+}
+.soon-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 1px solid rgba(245, 239, 226, 0.2);
+  border-radius: var(--r-btn, 10px);
+  color: #f5efe2;
+  padding: 14px 18px;
+  font-family: var(--font-inter), Inter, sans-serif;
+  font-size: 14px;
+  transition: border-color 120ms ease;
+}
+.soon-input::placeholder {
+  color: rgba(245, 239, 226, 0.35);
+}
+.soon-input:focus {
+  outline: none;
+  border-color: rgba(245, 239, 226, 0.5);
+}
+
+.soon-cta {
+  background: #d97757;
+  color: #0a0a0a;
+  border: none;
+  border-radius: var(--r-btn, 10px);
+  padding: 14px 22px;
+  font-family: var(--font-inter), Inter, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 120ms ease;
+}
+.soon-cta:hover {
+  filter: brightness(1.06);
+}
+.soon-cta:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.soon-error {
+  flex: 1 0 100%;
+  font-family: var(--font-inter), Inter, sans-serif;
+  font-size: 12px;
+  color: #ff9576;
+  margin-top: 2px;
+  text-align: left;
+}
+
+.soon-success {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 24px;
+  border: 1px solid rgba(217, 119, 87, 0.45);
+  border-radius: var(--r-btn, 10px);
+  font-family: var(--font-newsreader), Newsreader, Georgia, serif;
+  width: min(100%, 520px);
+  text-align: left;
+}
+.soon-success-title {
+  font-size: 19px;
+  font-weight: 500;
+  color: #f5efe2;
+}
+.soon-success-body {
+  font-size: 14.5px;
+  color: rgba(245, 239, 226, 0.65);
+  line-height: 1.5;
+}
+
+.soon-micro {
+  font-family: var(--font-inter), Inter, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: rgba(245, 239, 226, 0.42);
+  margin: 4px 0 0;
+  max-width: 360px;
+  line-height: 1.55;
+}
+
+/* ── Mobile: stack the form so the email field doesn't squeeze ───────── */
+@media (max-width: 540px) {
+  .soon-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .soon-cta {
+    padding: 14px 18px;
+  }
+}
