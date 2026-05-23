@@ -165,6 +165,52 @@
   color: #d97757;
 }
 
+/* ── Rotating word ─────────────────────────────────────────────────── */
+.rotating-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  position: relative;
+}
+
+.rotating-word {
+  display: inline-block;
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.rotating-in {
+  opacity: 1;
+  transform: translateY(0);
+  animation: wordIn 420ms ease both;
+}
+
+.rotating-out {
+  opacity: 0;
+  transform: translateY(-16px);
+  animation: wordOut 420ms ease both;
+}
+
+@keyframes wordIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wordOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
 /* ── Lede + sublede ─────────────────────────────────────────────────── */
 .soon-lede {
   font-family: var(--font-newsreader), Newsreader, Georgia, serif;

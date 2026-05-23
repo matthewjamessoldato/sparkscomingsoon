@@ -7,6 +7,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import Image from "next/image";
+import { RotatingWord } from "./RotatingWord";
 import { WaitlistForm } from "./WaitlistForm";
 import "./soon.css";
 
@@ -62,7 +63,7 @@ export default function SoonPage() {
         <div className="soon-rule anim-fade anim-d2" aria-hidden="true" />
 
         <h1 className="soon-headline anim-fade anim-d2">
-          honest<span className="soon-accent">.</span>
+          <RotatingWord />
         </h1>
 
         <p className="soon-lede anim-fade anim-d3">
