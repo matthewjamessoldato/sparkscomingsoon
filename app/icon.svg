@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Interim favicon (2026-04-24): black disc with a serif "S" + accent
+       period. Matches the wordmark we just put in place while a new
+       brand mark is designed. Path-based S so the glyph renders
+       identically across browsers without a web-font dependency. -->
+  <circle cx="32" cy="32" r="32" fill="#1a1a1a" />
+  <text
+    x="24"
+    y="44"
+    font-family="'Newsreader', 'Source Serif 4', 'Playfair Display', 'Times New Roman', Times, serif"
+    font-size="34"
+    font-weight="500"
+    fill="#f5efe2"
+  >S</text>
+  <circle cx="44" cy="40" r="3.2" fill="#c44d31" />
+</svg>
