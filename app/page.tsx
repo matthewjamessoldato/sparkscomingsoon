@@ -13,18 +13,18 @@ import "./soon.css";
 
 /* ── Mosaic images — 2 per source type ─────────────────────────────────── */
 const MOSAIC = [
-  { src: "/mosaic/film-inception.png",            alt: "Inception" },
-  { src: "/mosaic/music-bohemian-rhapsody.png",   alt: "Bohemian Rhapsody" },
-  { src: "/mosaic/philosophy-trolley-problem.png", alt: "The Trolley Problem" },
-  { src: "/mosaic/art-flower-thrower.png",         alt: "Flower Thrower" },
-  { src: "/mosaic/science-choice-overload.png",    alt: "Choice Overload" },
-  { src: "/mosaic/news-plastic-packaging.png",     alt: "Plastic Packaging" },
-  { src: "/mosaic/film-truman-show.png",           alt: "The Truman Show" },
-  { src: "/mosaic/music-hallelujah.png",           alt: "Hallelujah" },
-  { src: "/mosaic/philosophy-sisyphus.png",        alt: "The Myth of Sisyphus" },
-  { src: "/mosaic/art-spilliaert.jpg",             alt: "Self-portrait" },
-  { src: "/mosaic/science-food-insecurity.png",    alt: "Food Insecurity" },
-  { src: "/mosaic/news-retirement-denmark.png",    alt: "Retirement Age" },
+  { src: "/mosaic/film-inception.jpg",            alt: "Cinema" },
+  { src: "/mosaic/music-bohemian-rhapsody.jpg",   alt: "Freddie Mercury" },
+  { src: "/mosaic/philosophy-trolley-problem.jpg", alt: "The Thinker" },
+  { src: "/mosaic/art-flower-thrower.jpg",         alt: "Girl with a Pearl Earring" },
+  { src: "/mosaic/science-choice-overload.jpg",    alt: "Science" },
+  { src: "/mosaic/news-plastic-packaging.jpg",     alt: "Newspaper" },
+  { src: "/mosaic/film-truman-show.jpg",           alt: "Film projector" },
+  { src: "/mosaic/music-hallelujah.jpg",           alt: "Leonard Cohen" },
+  { src: "/mosaic/philosophy-sisyphus.jpg",        alt: "School of Athens" },
+  { src: "/mosaic/art-spilliaert.jpg",             alt: "Starry Night" },
+  { src: "/mosaic/science-food-insecurity.jpg",    alt: "DNA" },
+  { src: "/mosaic/news-retirement-denmark.jpg",    alt: "Press" },
 ];
 
 const SOURCES = ["film", "music", "art", "science", "philosophy", "news"] as const;
