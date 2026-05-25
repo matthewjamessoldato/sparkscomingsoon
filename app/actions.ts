@@ -24,6 +24,7 @@ const resend = process.env.RESEND_API_KEY
   : null;
 
 const SEND_FROM = process.env.SEND_FROM ?? "Sparks <onboarding@resend.dev>";
+const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID ?? "";
 
 export async function joinWaitlist(
   _prev: WaitlistState,
@@ -91,31 +92,20 @@ export async function joinWaitlist(
     }
   }
 
-  // ── Log to local JSON (both dev and prod) ─────────────────────────────
-  try {
-    const { promises: fs } = await import("node:fs");
-    const { join } = await import("node:path");
-    const filePath = join(process.cwd(), "data", "waitlist.json");
-
-    type Entry = { email: string; joinedAt: string };
-    let entries: Entry[] = [];
+  // ── Add to Resend Audience (persistent, visible at resend.com/audiences) ──
+  if (resend && AUDIENCE_ID) {
     try {
-      entries = JSON.parse(await fs.readFile(filePath, "utf-8"));
-    } catch {
-      /* first signup */
+      await resend.contacts.create({
+        audienceId: AUDIENCE_ID,
+        email,
+      });
+      console.log(`[waitlist] Contact added to audience`);
+    } catch (err) {
+      // Duplicate contacts are silently accepted by Resend — this only
+      // fires on real API errors. Non-fatal: the confirmation email
+      // already went out.
+      console.error("[waitlist] Audience write failed:", err);
     }
-
-    if (!entries.some((e) => e.email === email)) {
-      entries.push({ email, joinedAt: new Date().toISOString() });
-      await fs.mkdir(join(process.cwd(), "data"), { recursive: true });
-      await fs.writeFile(filePath, JSON.stringify(entries, null, 2), "utf-8");
-    }
-
-    console.log(`[waitlist] ${resend ? "Email sent + " : ""}saved (${entries.length} total)`);
-  } catch {
-    // On serverless (Vercel), filesystem writes may fail — that's fine,
-    // the email was already sent.
-    console.log("[waitlist] Email sent (fs write skipped on serverless)");
   }
 
   return { ok: true, error: null, email };

@@ -18,10 +18,23 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Coming Soon — Sparks",
+  title: "Sparks — Source-led English lessons",
   description:
-    "Source-led English lessons built around real art, film, music, science, philosophy, and news. Launching soon.",
-  robots: { index: false, follow: false },
+    "Conversation lessons built around real art, film, music, science, philosophy, and news. No filler. No fluff. Just honest.",
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: "Sparks — Source-led English lessons",
+    description:
+      "Conversation lessons built around real art, film, music, science, philosophy, and news. No filler. No fluff. Just honest.",
+    siteName: "Sparks",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sparks — Source-led English lessons",
+    description:
+      "Conversation lessons built around real art, film, music, science, philosophy, and news.",
+  },
 };
 
 export default function RootLayout({
