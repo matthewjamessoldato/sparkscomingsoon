@@ -20,7 +20,7 @@ const MOSAIC = [
   { src: "/mosaic/science-choice-overload.jpg",    alt: "Science" },
   { src: "/mosaic/news-plastic-packaging.jpg",     alt: "Newspaper" },
   { src: "/mosaic/film-truman-show.jpg",           alt: "Film projector" },
-  { src: "/mosaic/music-hallelujah.jpg",           alt: "Leonard Cohen" },
+  { src: "/mosaic/music-hallelujah.jpg",           alt: "Louis Armstrong" },
   { src: "/mosaic/philosophy-sisyphus.jpg",        alt: "School of Athens" },
   { src: "/mosaic/art-spilliaert.jpg",             alt: "Starry Night" },
   { src: "/mosaic/science-food-insecurity.jpg",    alt: "DNA" },
