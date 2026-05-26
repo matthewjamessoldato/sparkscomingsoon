@@ -13,18 +13,18 @@ import "./soon.css";
 
 /* ── Mosaic images — 2 per source type ─────────────────────────────────── */
 const MOSAIC = [
-  { src: "/mosaic/film-inception.jpg",            alt: "Cinema" },
-  { src: "/mosaic/music-bohemian-rhapsody.jpg",   alt: "Freddie Mercury" },
-  { src: "/mosaic/philosophy-trolley-problem.jpg", alt: "The Thinker" },
-  { src: "/mosaic/art-flower-thrower.jpg",         alt: "Girl with a Pearl Earring" },
-  { src: "/mosaic/science-choice-overload.jpg",    alt: "Science" },
-  { src: "/mosaic/news-plastic-packaging.jpg",     alt: "Newspaper" },
-  { src: "/mosaic/film-truman-show.jpg",           alt: "Film projector" },
-  { src: "/mosaic/music-hallelujah.jpg",           alt: "Louis Armstrong" },
-  { src: "/mosaic/philosophy-sisyphus.jpg",        alt: "School of Athens" },
-  { src: "/mosaic/art-spilliaert.jpg",             alt: "Starry Night" },
-  { src: "/mosaic/science-food-insecurity.jpg",    alt: "DNA" },
-  { src: "/mosaic/news-retirement-denmark.jpg",    alt: "Press" },
+  { src: "/mosaic/film-inception.png",            alt: "Inception lesson" },
+  { src: "/mosaic/music-bohemian-rhapsody.png",   alt: "Bohemian Rhapsody lesson" },
+  { src: "/mosaic/philosophy-trolley-problem.png", alt: "The Trolley Problem lesson" },
+  { src: "/mosaic/art-flower-thrower.jpg",         alt: "Girl with a Pearl Earring — Vermeer" },
+  { src: "/mosaic/science-choice-overload.png",    alt: "Choice Overload lesson" },
+  { src: "/mosaic/news-plastic-packaging.png",     alt: "Plastic Packaging lesson" },
+  { src: "/mosaic/film-truman-show.png",           alt: "The Truman Show lesson" },
+  { src: "/mosaic/music-hallelujah.png",           alt: "Hallelujah lesson" },
+  { src: "/mosaic/philosophy-sisyphus.png",        alt: "The Myth of Sisyphus lesson" },
+  { src: "/mosaic/art-spilliaert.jpg",             alt: "The Starry Night — Van Gogh" },
+  { src: "/mosaic/art-faun-moonlight.jpg",         alt: "Faun by Moonlight" },
+  { src: "/mosaic/art-pontiac-building.jpg",       alt: "Pontiac Building — then and now" },
 ];
 
 const SOURCES = ["film", "music", "art", "science", "philosophy", "news"] as const;
