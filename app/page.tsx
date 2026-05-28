@@ -13,18 +13,18 @@ import "./soon.css";
 
 /* ── Mosaic images — 2 per source type ─────────────────────────────────── */
 const MOSAIC = [
-  { src: "/mosaic/film-inception.png",            alt: "Inception lesson" },
-  { src: "/mosaic/music-bohemian-rhapsody.png",   alt: "Bohemian Rhapsody lesson" },
-  { src: "/mosaic/philosophy-trolley-problem.png", alt: "The Trolley Problem lesson" },
-  { src: "/mosaic/art-flower-thrower.jpg",         alt: "Girl with a Pearl Earring — Vermeer" },
-  { src: "/mosaic/science-choice-overload.png",    alt: "Choice Overload lesson" },
-  { src: "/mosaic/news-plastic-packaging.png",     alt: "Plastic Packaging lesson" },
-  { src: "/mosaic/film-truman-show.png",           alt: "The Truman Show lesson" },
-  { src: "/mosaic/music-hallelujah.png",           alt: "Hallelujah lesson" },
-  { src: "/mosaic/philosophy-sisyphus.png",        alt: "The Myth of Sisyphus lesson" },
-  { src: "/mosaic/art-spilliaert.jpg",             alt: "The Starry Night — Van Gogh" },
-  { src: "/mosaic/art-faun-moonlight.jpg",         alt: "Faun by Moonlight" },
-  { src: "/mosaic/art-pontiac-building.jpg",       alt: "Pontiac Building — then and now" },
+  { src: "/mosaic/film-inception.webp",        alt: "Inception lesson" },
+  { src: "/mosaic/music-hey-ya.webp",          alt: "Hey Ya! lesson" },
+  { src: "/mosaic/philosophy-lifeboat.png",    alt: "The Lifeboat lesson" },
+  { src: "/mosaic/art-great-wave.jpg",         alt: "The Great Wave off Kanagawa" },
+  { src: "/mosaic/science-gorilla.webp",       alt: "The Invisible Gorilla lesson" },
+  { src: "/mosaic/news-notre-dame.webp",       alt: "Notre-Dame fire lesson" },
+  { src: "/mosaic/film-la-la-land.webp",       alt: "La La Land lesson" },
+  { src: "/mosaic/music-stand-by-me.webp",     alt: "Stand by Me lesson" },
+  { src: "/mosaic/philosophy-sisyphus.png",    alt: "The Myth of Sisyphus lesson" },
+  { src: "/mosaic/art-the-kiss.jpg",           alt: "The Kiss — Klimt" },
+  { src: "/mosaic/science-sleep-loss.webp",    alt: "Sleep Loss lesson" },
+  { src: "/mosaic/news-chile-miners.webp",     alt: "Chile miners rescue lesson" },
 ];
 
 const SOURCES = ["film", "music", "art", "science", "philosophy", "news"] as const;
@@ -77,22 +77,19 @@ export default function SoonPage() {
 
         {/* ── Source-type strip ─────────────────────────────────────────── */}
         <div className="soon-sources anim-fade anim-d3">
-          {SOURCES.map((s, i) => (
+          {SOURCES.map((s) => (
             <span key={s} className="soon-source-pill">
               {s}
             </span>
           ))}
         </div>
 
-        <div className="anim-fade anim-d4" style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        {/* ── Waitlist ───────────────────────────────────────────────────── */}
+        <div className="soon-cta-block anim-fade anim-d4">
+          <p className="soon-cta-head">Be the first to know when we launch.</p>
           <WaitlistForm />
+          <p className="soon-micro">No spam, ever — just one email the day we go live.</p>
         </div>
-
-        <p className="soon-micro anim-fade anim-d5">
-          Join the waitlist — we'll let you know the moment we launch.
-          <br />
-          No spam, ever.
-        </p>
       </div>
     </div>
   );

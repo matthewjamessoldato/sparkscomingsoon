@@ -47,10 +47,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.6) saturate(0.7);
+  filter: brightness(0.72) saturate(0.82) contrast(1.02);
 }
 
-/* moderate vignette — centre text reads clearly but photos breathe */
+/* Soft edge vignette — the frosted card carries text legibility now, so the
+   mosaic is free to breathe and stay vivid. Darkens the corners, keeps the
+   imagery rich toward the centre. */
 .soon-mosaic-vignette {
   position: fixed;
   inset: 0;
@@ -58,11 +60,11 @@
   pointer-events: none;
   background:
     radial-gradient(
-      ellipse 55% 50% at 50% 46%,
-      rgba(5, 4, 3, 0.88) 0%,
-      rgba(5, 4, 3, 0.75) 30%,
-      rgba(5, 4, 3, 0.4) 65%,
-      rgba(5, 4, 3, 0.05) 100%
+      ellipse 95% 85% at 50% 50%,
+      rgba(5, 4, 3, 0.04) 0%,
+      rgba(5, 4, 3, 0.22) 58%,
+      rgba(5, 4, 3, 0.5) 85%,
+      rgba(5, 4, 3, 0.72) 100%
     );
 }
 
@@ -117,16 +119,36 @@
   100% { transform: translate(0, 0); }
 }
 
-/* ── Stage ──────────────────────────────────────────────────────────── */
+/* ── Stage — frosted glass card floating above the mosaic ───────────── */
 .soon-stage {
   position: relative;
   z-index: 1;
-  width: min(100%, 640px);
+  width: min(100%, 600px);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
+  padding: clamp(40px, 6vw, 64px) clamp(28px, 5vw, 56px);
+  border-radius: 28px;
+  background:
+    radial-gradient(
+      ellipse 90% 70% at 50% 0%,
+      rgba(217, 119, 87, 0.08) 0%,
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(22, 17, 14, 0.74) 0%,
+      rgba(9, 7, 5, 0.86) 100%
+    );
+  backdrop-filter: blur(28px) saturate(1.15);
+  -webkit-backdrop-filter: blur(28px) saturate(1.15);
+  border: 1px solid rgba(245, 239, 226, 0.1);
+  box-shadow:
+    0 50px 130px -28px rgba(0, 0, 0, 0.8),
+    0 8px 28px -10px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(245, 239, 226, 0.07);
 }
 
 /* ── Wordmark ───────────────────────────────────────────────────────── */
@@ -155,11 +177,11 @@
 /* ── Headline ───────────────────────────────────────────────────────── */
 .soon-headline {
   font-family: var(--font-newsreader), Newsreader, Georgia, serif;
-  font-size: clamp(64px, 12vw, 120px);
+  font-size: clamp(52px, 9vw, 88px);
   line-height: 0.9;
   letter-spacing: -0.03em;
   font-weight: 400;
-  margin: 0 0 32px;
+  margin: 0 0 30px;
 }
 .soon-accent {
   color: #d97757;
@@ -235,21 +257,21 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 36px;
+  gap: 7px;
+  margin-bottom: 38px;
 }
 
 .soon-source-pill {
   font-family: var(--font-inter), Inter, sans-serif;
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(217, 119, 87, 0.7);
-  background: rgba(217, 119, 87, 0.06);
-  border: 1px solid rgba(217, 119, 87, 0.12);
+  color: rgba(217, 119, 87, 0.78);
+  background: rgba(217, 119, 87, 0.07);
+  border: 1px solid rgba(217, 119, 87, 0.16);
   border-radius: 999px;
-  padding: 6px 16px;
+  padding: 6px 13px;
   transition: color 200ms ease, background 200ms ease, border-color 200ms ease;
 }
 
@@ -259,35 +281,55 @@
   border-color: rgba(217, 119, 87, 0.25);
 }
 
+/* ── Waitlist block ─────────────────────────────────────────────────── */
+.soon-cta-block {
+  width: min(100%, 440px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.soon-cta-head {
+  font-family: var(--font-newsreader), Newsreader, Georgia, serif;
+  font-size: clamp(17px, 2.4vw, 20px);
+  line-height: 1.4;
+  color: rgba(245, 239, 226, 0.92);
+  margin: 0;
+}
+
 /* ── Form ───────────────────────────────────────────────────────────── */
 .soon-form {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  width: min(100%, 480px);
+  width: 100%;
 }
 
 .soon-input {
   flex: 1;
   min-width: 0;
-  background: rgba(245, 239, 226, 0.04);
-  border: 1px solid rgba(245, 239, 226, 0.12);
+  background: rgba(245, 239, 226, 0.09);
+  border: 1px solid rgba(245, 239, 226, 0.22);
   border-radius: 10px;
   color: #f5efe2;
   padding: 15px 20px;
   font-family: var(--font-inter), Inter, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   transition: border-color 200ms ease, background 200ms ease,
               box-shadow 200ms ease;
 }
 .soon-input::placeholder {
-  color: rgba(245, 239, 226, 0.28);
+  color: rgba(245, 239, 226, 0.45);
+}
+.soon-input:hover {
+  border-color: rgba(245, 239, 226, 0.32);
 }
 .soon-input:focus {
   outline: none;
-  border-color: rgba(217, 119, 87, 0.5);
-  background: rgba(245, 239, 226, 0.06);
-  box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.08);
+  border-color: rgba(217, 119, 87, 0.7);
+  background: rgba(245, 239, 226, 0.12);
+  box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.15);
 }
 
 .soon-cta {
@@ -368,10 +410,10 @@
 /* ── Micro copy ─────────────────────────────────────────────────────── */
 .soon-micro {
   font-family: var(--font-inter), Inter, sans-serif;
-  font-size: 11px;
+  font-size: 11.5px;
   letter-spacing: 0.04em;
-  color: rgba(245, 239, 226, 0.3);
-  margin-top: 20px;
+  color: rgba(245, 239, 226, 0.45);
+  margin: 2px 0 0;
   max-width: 340px;
   line-height: 1.65;
 }
@@ -397,29 +439,27 @@
 
 /* ── Mobile ─────────────────────────────────────────────────────────── */
 @media (max-width: 540px) {
+  .soon-shell {
+    padding: 20px 16px;
+  }
   .soon-mosaic {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr);
   }
   .soon-mosaic-cell img {
-    filter: brightness(0.5) saturate(0.65);
+    filter: brightness(0.62) saturate(0.78);
   }
-  .soon-mosaic-vignette {
-    background:
-      radial-gradient(
-        ellipse 65% 48% at 50% 44%,
-        rgba(5, 4, 3, 0.92) 0%,
-        rgba(5, 4, 3, 0.82) 30%,
-        rgba(5, 4, 3, 0.5) 60%,
-        rgba(5, 4, 3, 0.08) 100%
-      );
+  .soon-stage {
+    padding: 36px 24px;
+    border-radius: 22px;
   }
   .soon-form {
     flex-direction: column;
     gap: 10px;
   }
   .soon-cta {
-    padding: 15px 20px;
+    padding: 16px 20px;
+    width: 100%;
   }
   .soon-headline {
     margin-bottom: 24px;
