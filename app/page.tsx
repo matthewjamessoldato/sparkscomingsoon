@@ -81,8 +81,8 @@ const GALLERY: GalleryCard[] = [
     fam: "music",
     label: "Music",
     color: "var(--c-music)",
-    src: "The Happiest Sad Song Ever Written",
-    meta: "“Hey Ya!” — OutKast, 2003 · B2",
+    src: "Hey Ya!",
+    meta: "OutKast, 2003 · B2",
     alt: "A house party, two people dancing as a record plays",
   },
   {
@@ -90,7 +90,7 @@ const GALLERY: GalleryCard[] = [
     fam: "art",
     label: "Art",
     color: "var(--c-art)",
-    src: "The Great Wave",
+    src: "The Great Wave off Kanagawa",
     meta: "Hokusai, c. 1830 · A2",
     alt: "The Great Wave off Kanagawa by Hokusai",
   },
@@ -99,7 +99,7 @@ const GALLERY: GalleryCard[] = [
     fam: "news",
     label: "News",
     color: "var(--c-news)",
-    src: "33 men, 69 days, all safe",
+    src: "The 33 men under the mountain",
     meta: "The 2010 Chile mine rescue · A2",
     alt: "Chilean miners being rescued from underground in 2010",
   },
@@ -117,7 +117,7 @@ const GALLERY: GalleryCard[] = [
     fam: "philosophy",
     label: "Philosophy",
     color: "var(--c-philosophy)",
-    src: "The Myth of Sisyphus",
+    src: "Sisyphus Must Be Happy",
     meta: "Albert Camus, 1942 · C1",
     alt: "An engraving of Sisyphus pushing his boulder up the mountain",
   },
@@ -193,13 +193,13 @@ const STEPS: Step[] = [
 type Lesson = { fam: string; label: string; color: string; img: string; title: string; src: string; lvl: string };
 const LESSONS: Lesson[] = [
   { fam: "news", label: "News", color: "var(--c-news)", img: "/illustrations/specials/news/news-the-art-that-shredded-itself/thumb-card.webp", title: "The Art That Shredded Itself", src: "Banksy at Sotheby’s, 2018", lvl: "B2" },
-  { fam: "philosophy", label: "Philosophy", color: "var(--c-philosophy)", img: "/illustrations/specials/philosophy/philosophy-behind-the-veil/thumb-card.webp", title: "Behind the Veil", src: "John Rawls, A Theory of Justice (1971)", lvl: "C1" },
-  { fam: "music", label: "Music", color: "var(--c-music)", img: "/illustrations/specials/music/music-wonderwall/thumb-card.webp", title: "Wonderwall — Oasis", src: "Oasis, 1995", lvl: "B1" },
+  { fam: "philosophy", label: "Philosophy", color: "var(--c-philosophy)", img: "/illustrations/specials/philosophy/philosophy-behind-the-veil/thumb-card.webp", title: "Behind the Veil", src: "John Rawls, A Theory of Justice (1971)", lvl: "B2" },
+  { fam: "music", label: "Music", color: "var(--c-music)", img: "/illustrations/specials/music/music-wonderwall/thumb-card.webp", title: "Wonderwall", src: "Oasis, 1995", lvl: "B2" },
   { fam: "science", label: "Science", color: "var(--c-science)", img: "/illustrations/specials/science/science-what-feels-like-learning-isnt-learning/thumb-card.webp", title: "What Feels Like Learning Isn’t Learning", src: "Roediger & Karpicke, 2006", lvl: "B2" },
   { fam: "film", label: "Film", color: "var(--c-film)", img: "/illustrations/specials/film/film-the-truman-show-talking-to-the-creator/thumb-card.webp", title: "The Truman Show: Talking to the Creator", src: "dir. Peter Weir, 1998", lvl: "B2" },
   { fam: "art", label: "Art", color: "var(--c-art)", img: "/illustrations/thumbs/art-the-starry-night.webp", title: "The Starry Night", src: "Vincent van Gogh, 1889", lvl: "B2" },
   { fam: "news", label: "News", color: "var(--c-news)", img: "/illustrations/specials/news/news-one-hundred-million-users-two-years-the-argument-we-couldnt-postpone/thumb-card.webp", title: "One hundred million users. Two years.", src: "ChatGPT launches, Nov 2022", lvl: "C1" },
-  { fam: "music", label: "Music", color: "var(--c-music)", img: "/illustrations/specials/music/music-hallelujah/thumb-card.webp", title: "Hallelujah — Leonard Cohen", src: "Leonard Cohen, 1984", lvl: "B2" },
+  { fam: "music", label: "Music", color: "var(--c-music)", img: "/illustrations/specials/music/music-hallelujah/thumb-card.webp", title: "Hallelujah", src: "Leonard Cohen, 1984", lvl: "C1" },
   { fam: "philosophy", label: "Philosophy", color: "var(--c-philosophy)", img: "/illustrations/specials/philosophy/philosophy-the-trolley-problem/thumb-card.webp", title: "The Trolley Problem", src: "Philippa Foot, 1967", lvl: "B1" },
 ];
 
@@ -222,7 +222,7 @@ export default function SoonPage() {
               columns short of the bottom, exposing the #050403 background as
               black space. Duplicate URLs are served from cache (no extra
               network requests); the vignette hides the seam. */}
-          {[...MOSAIC, ...MOSAIC, ...MOSAIC].map((src, i) => (
+          {[...MOSAIC, ...MOSAIC, ...MOSAIC, ...MOSAIC].map((src, i) => (
             // eslint-disable-next-line @next/next/no-img-element
             <img key={`${src}-${i}`} src={src} alt="" loading="eager" draggable={false} />
           ))}
