@@ -215,10 +215,16 @@ export default function SoonPage() {
           {/* Plain <img> (not next/image): the masonry `columns` layout relies
               on each tile keeping its NATURAL aspect ratio. next/image with a
               fixed width/height forces one ratio on every tile and squashes
-              them. width:100% + height:auto (in soon.css) preserves ratios. */}
-          {MOSAIC.map((src) => (
+              them. width:100% + height:auto (in soon.css) preserves ratios.
+
+              Tiles are rendered TWICE so every masonry column overflows the
+              full hero height — 32 tiles across ~8 columns left the shortest
+              columns short of the bottom, exposing the #050403 background as
+              black space. Duplicate URLs are served from cache (no extra
+              network requests); the vignette hides the seam. */}
+          {[...MOSAIC, ...MOSAIC, ...MOSAIC].map((src, i) => (
             // eslint-disable-next-line @next/next/no-img-element
-            <img key={src} src={src} alt="" loading="eager" draggable={false} />
+            <img key={`${src}-${i}`} src={src} alt="" loading="eager" draggable={false} />
           ))}
         </div>
         <div className="hero-vignette" aria-hidden="true" />
