@@ -142,8 +142,15 @@ img {
   position: absolute;
   inset: -7% -1%;
   z-index: 0;
-  columns: 7 168px;
-  column-gap: 7px;
+  /* Uniform gallery-wall grid — every tile an identical square, cover-cropped.
+     Replaces the old `columns` masonry (ragged heights + gaps + black space).
+     auto-fill at 200px keeps enough rows to fill 100svh on tall/wide displays
+     given the 96-tile (3×) set; the grid clips cleanly under the vignette. */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 7px;
+  align-content: start;
   opacity: 0;
   animation:
     mosaicIn 2.8s ease 200ms forwards,
@@ -151,14 +158,14 @@ img {
 }
 .hero-mosaic img {
   width: 100%;
-  height: auto;
-  margin: 0 0 7px;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   display: block;
   border-radius: 2px;
   border: 1px solid rgba(0, 0, 0, 0.55);
   box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.75);
   filter: brightness(0.95) saturate(1.02) contrast(1.01);
-  break-inside: avoid;
 }
 @keyframes mosaicIn {
   to {
