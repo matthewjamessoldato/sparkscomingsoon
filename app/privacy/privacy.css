@@ -1,0 +1,147 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   /privacy — Privacy notice for the holding page.
+   ─────────────────────────────────────────────────────────────────────────
+   Long-form text page. Shares the dark base with /soon but strips the
+   mosaic/glow/grain — this is a document, not a hero. Newsreader for
+   the body for readability at length; Inter for chrome.
+   ───────────────────────────────────────────────────────────────────── */
+
+.privacy-shell {
+  min-height: 100dvh;
+  background: #050403;
+  color: #f5efe2;
+  padding: clamp(40px, 6vh, 80px) clamp(20px, 4vw, 48px) clamp(80px, 10vh, 120px);
+  overflow-x: hidden;
+}
+
+.privacy-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-inter), Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245, 239, 226, 0.5);
+  text-decoration: none;
+  margin-bottom: 48px;
+  transition: color 150ms ease;
+}
+.privacy-back:hover {
+  color: rgba(245, 239, 226, 0.85);
+}
+
+.privacy-article {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.privacy-wordmark {
+  font-family: var(--font-newsreader), Newsreader, Georgia, serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: rgba(245, 239, 226, 0.55);
+  margin-bottom: 32px;
+}
+.privacy-wordmark-dot {
+  color: #d97757;
+}
+
+.privacy-title {
+  font-family: var(--font-newsreader), Newsreader, Georgia, serif;
+  font-size: clamp(36px, 5.5vw, 52px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0 0 12px;
+}
+
+.privacy-updated {
+  font-family: var(--font-inter), Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(245, 239, 226, 0.45);
+  margin: 0 0 56px;
+}
+
+.privacy-article h2 {
+  font-family: var(--font-newsreader), Newsreader, Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: #f5efe2;
+  margin: 48px 0 14px;
+}
+
+.privacy-article p,
+.privacy-article li {
+  font-family: var(--font-newsreader), Newsreader, Georgia, serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(245, 239, 226, 0.78);
+  margin: 0 0 14px;
+}
+
+.privacy-article ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+}
+.privacy-article li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 8px;
+}
+.privacy-article li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: rgba(217, 119, 87, 0.7);
+}
+
+.privacy-article a {
+  color: #d97757;
+  text-decoration: underline;
+  text-decoration-color: rgba(217, 119, 87, 0.4);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
+}
+.privacy-article a:hover {
+  text-decoration-color: rgba(217, 119, 87, 1);
+}
+
+.privacy-article strong {
+  color: #f5efe2;
+  font-weight: 500;
+}
+
+.privacy-article code {
+  font-family: ui-monospace, "JetBrains Mono", monospace;
+  font-size: 14px;
+  color: #d97757;
+  background: rgba(217, 119, 87, 0.08);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.privacy-rule {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d97757, transparent);
+  opacity: 0.4;
+  margin: 64px auto 0;
+}
+
+.privacy-footnote {
+  font-family: var(--font-inter), Inter, sans-serif;
+  font-size: 11px;
+  line-height: 1.6;
+  color: rgba(245, 239, 226, 0.35);
+  text-align: center;
+  margin: 24px 0 0;
+}

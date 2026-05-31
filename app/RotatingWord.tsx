@@ -1,43 +1,58 @@
 "use client";
 
-import { useEffect, useState } from "react";
+// ─────────────────────────────────────────────────────────────────────────────
+// RotatingWord — the hero's cycling headline noun ("a painting" → "a film
+// scene" → …). Mirrors the Coming Soon design's rotWord script. Respects
+// prefers-reduced-motion by holding the first word.
+// ─────────────────────────────────────────────────────────────────────────────
 
-const WORDS = ["film", "music", "art", "science", "philosophy", "news", "honest"];
-const INTERVAL = 2400; // ms per word
-const LAST = WORDS.length - 1;
+import { useEffect, useRef, useState } from "react";
+
+const WORDS = [
+  "a painting",
+  "a film scene",
+  "a song",
+  "a headline",
+  "a big question",
+  "something real",
+];
+const INTERVAL = 2400;
 
 export function RotatingWord() {
-  const [index, setIndex] = useState(0);
+  const [word, setWord] = useState(WORDS[0]);
   const [phase, setPhase] = useState<"in" | "out">("in");
+  const idx = useRef(0);
 
   useEffect(() => {
-    // Pause longer on "honest" (the final word)
-    const hold = index === LAST ? INTERVAL * 1.6 : INTERVAL;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
 
-    const exitTimer = setTimeout(() => {
-      setPhase("out");
-    }, hold - 500); // start exit 500ms before switch
+    let outTimer: number;
+    let swapTimer: number;
 
-    const switchTimer = setTimeout(() => {
-      setIndex((i) => (i + 1) % WORDS.length);
-      setPhase("in");
-    }, hold);
+    function cycle() {
+      const last = idx.current === WORDS.length - 1;
+      const hold = last ? INTERVAL * 1.6 : INTERVAL;
+      outTimer = window.setTimeout(() => setPhase("out"), hold - 460);
+      swapTimer = window.setTimeout(() => {
+        idx.current = (idx.current + 1) % WORDS.length;
+        setWord(WORDS[idx.current]);
+        setPhase("in");
+        cycle();
+      }, hold);
+    }
+    cycle();
 
     return () => {
-      clearTimeout(exitTimer);
-      clearTimeout(switchTimer);
+      window.clearTimeout(outTimer);
+      window.clearTimeout(swapTimer);
     };
-  }, [index]);
+  }, []);
 
   return (
-    <span className="rotating-wrap">
-      <span
-        key={index}
-        className={`rotating-word ${phase === "in" ? "rotating-in" : "rotating-out"}`}
-      >
-        {WORDS[index]}
-      </span>
-      <span className="soon-accent">.</span>
+    <span className="rot-wrap">
+      <span className={"rot-word rot-" + phase}>{word}</span>
+      <span className="rot-accent">.</span>
     </span>
   );
 }
