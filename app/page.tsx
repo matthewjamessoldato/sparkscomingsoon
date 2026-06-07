@@ -1,12 +1,9 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Coming-soon page for Sparks.
 //
-// Ported from the Claude Design "Coming Soon.html" handoff (May 2026).
-// Seven sections: hero mosaic + waitlist, the idea, source gallery,
-// anatomy of a lesson, library strip, final CTA, footer. Static server
-// component; the rotating headline, scroll-reveal, and Resend-wired waitlist
-// form are small client islands. Imagery is the real Sparks lesson thumbnail
-// set copied from the main Spark repo under /public/illustrations.
+// Static server component with small client islands for the rotating hero word,
+// scroll reveal, and Resend-wired waitlist form. Imagery is the current Sparks
+// lesson thumbnail set copied from the main Spark repo under /public/illustrations.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { RotatingWord } from "./RotatingWord";
@@ -58,7 +55,7 @@ const MOSAIC = [
 
 const SOURCES = ["film", "music", "art", "science", "philosophy", "literature", "news"] as const;
 
-/* ── Six-sources gallery ────────────────────────────────────────────────── */
+/* ── Source gallery ─────────────────────────────────────────────────────── */
 type GalleryCard = {
   img: string;
   fam: string;
@@ -234,58 +231,56 @@ export default function SoonPage() {
       {/* ══════════════ HERO ══════════════ */}
       <header className="hero">
         <div className="hero-mosaic" aria-hidden="true">
-          {/* Plain <img> (not next/image): the masonry `columns` layout relies
-              on each tile keeping its NATURAL aspect ratio. next/image with a
-              fixed width/height forces one ratio on every tile and squashes
-              them. width:100% + height:auto (in soon.css) preserves ratios.
+          {/* Plain <img> (not next/image): the image wall relies
+              on every tile keeping a stable square crop. The images are
+              repeated so the drifting wall always fills wide and tall screens;
+              duplicates are served from cache, and the vignette hides the seam. */}
+          {[...MOSAIC, ...MOSAIC, ...MOSAIC, ...MOSAIC].map((src, i) => {
+            const delay = 90 + ((i * 137) % 1040);
 
-              Tiles are rendered TWICE so every masonry column overflows the
-              full hero height — 32 tiles across ~8 columns left the shortest
-              columns short of the bottom, exposing the #050403 background as
-              black space. Duplicate URLs are served from cache (no extra
-              network requests); the vignette hides the seam. */}
-          {[...MOSAIC, ...MOSAIC, ...MOSAIC, ...MOSAIC].map((src, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={`${src}-${i}`} src={src} alt="" loading="eager" draggable={false} />
-          ))}
+            return (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={`${src}-${i}`}
+                src={src}
+                alt=""
+                loading="eager"
+                decoding="async"
+                draggable={false}
+                style={{ animationDelay: `${delay}ms` }}
+              />
+            );
+          })}
         </div>
         <div className="hero-vignette" aria-hidden="true" />
         <div className="hero-glow" aria-hidden="true" />
 
-        <div className="hero-card">
+        <div className="hero-copy">
+          <span className="hero-kicker fx d1">
+            Source-led English for adult classes
+          </span>
           <span className="wordmark fx d1">
             sparks<span className="dot">.</span>
           </span>
-          <div className="hero-rule fx d2" aria-hidden="true" />
           <h1 className="hero-h1 fx d2">
             <span className="lead-in">Walk into class with</span>
             <RotatingWord />
           </h1>
           <p className="hero-lede fx d3">
             Ready-to-teach conversation lessons for adults, built on real art,
-            film, music, science, philosophy, literature and news. You bring the class — the
-            lesson is already done.
+            film, music, science, philosophy, literature and news. You bring the
+            class — the lesson is already done.
           </p>
           <p className="hero-sublede fx d3">
-            No prep. No filler. Just&nbsp;real conversation.
+            No prep. No filler. Just real conversation.
           </p>
 
-          <div className="hero-sources fx d4">
-            {SOURCES.map((s) => (
-              <span key={s} className="src-pill">
-                {s}
-              </span>
-            ))}
-          </div>
+          <p className="source-line fx d4">
+            {SOURCES.join(" / ")}
+          </p>
 
           <div
-            className="fx d5"
-            style={{
-              width: "min(100%,420px)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+            className="hero-form fx d5"
           >
             <div className="wl-proof">
               <span className="proof-dot" />
@@ -353,7 +348,7 @@ export default function SoonPage() {
         </div>
       </section>
 
-      {/* ══════════════ SIX SOURCES ══════════════ */}
+      {/* ══════════════ SOURCES ══════════════ */}
       <section className="section sources" id="sources">
         <div className="wrap">
           <div className="sec-head reveal">

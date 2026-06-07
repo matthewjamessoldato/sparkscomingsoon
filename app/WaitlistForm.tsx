@@ -38,6 +38,15 @@ export function WaitlistForm({
   return (
     <>
       <form className="wl-form" action={formAction}>
+        <div className="hp-field" aria-hidden="true">
+          <input
+            type="text"
+            name="company"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
+        </div>
         <input
           type="email"
           name="email"
