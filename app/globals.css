@@ -13,3 +13,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+:root {
+  --bg-base: #fbf9f4;
+  --bg-surface: #f0ece4;
+  --bg-surface-hi: #ebe5d5;
+  --ink-100: #1a1815;
+  --ink-80: rgba(26, 24, 21, 0.82);
+  --ink-60: rgba(26, 24, 21, 0.62);
+  --ink-40: rgba(26, 24, 21, 0.62);
+  --ink-25: rgba(26, 24, 21, 0.3);
+  --ink-15: rgba(26, 24, 21, 0.15);
+  --ink-08: rgba(26, 24, 21, 0.08);
+  --hairline: rgba(26, 24, 21, 0.1);
+  --hairline-hi: rgba(26, 24, 21, 0.24);
+  --accent: #c44d31;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--ink-100);
+  font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
+}

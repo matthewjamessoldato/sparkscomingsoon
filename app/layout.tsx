@@ -22,7 +22,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Sparks — Source-Led ESL Conversation Lessons | Art, Film, Music & More",
   description:
-    "Premium adult ESL conversation lessons built around real art, film, music, science and philosophy. CEFR-aligned A2–C1. No textbook filler — every lesson starts with a real cultural source.",
+    "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned A2-C1. No textbook filler — every lesson starts with a real cultural source.",
   keywords: [
     "online ESL course",
     "adult ESL conversation lessons",
@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     "ESL lesson plans for adults",
     "English conversation class online",
     "source-based English lessons",
+    "English lessons through literature",
     "premium ESL subscription",
     "Sparks ESL",
   ],
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sparks — Source-Led ESL Conversation Lessons",
     description:
-      "Premium adult ESL conversation lessons built around real art, film, music, science and philosophy. CEFR-aligned. No textbook filler.",
+      "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned. No textbook filler.",
     siteName: "Sparks",
     url: SITE_URL,
     type: "website",
@@ -53,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sparks — Source-Led ESL Conversation Lessons",
     description:
-      "Premium adult ESL conversation lessons built around real art, film, music, science and philosophy. CEFR-aligned. No textbook filler.",
+      "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned. No textbook filler.",
   },
 };
 
@@ -64,7 +65,7 @@ const organizationLd = {
   name: "Sparks",
   url: SITE_URL,
   description:
-    "Source-led ESL conversation lessons built around real art, film, music, science, philosophy, and news.",
+    "Source-led ESL conversation lessons built around real art, film, music, science, philosophy, literature, and news.",
   areaServed: "Worldwide",
   teaches: "English as a Second Language",
 };
@@ -84,7 +85,7 @@ const courseLd = {
   "@type": "Course",
   name: "Sparks ESL Conversation Course",
   description:
-    "Source-led English conversation lessons for adults, built around real art, film, music, science, philosophy, and news. CEFR-aligned A2 to C1.",
+    "Source-led English conversation lessons for adults, built around real art, film, music, science, philosophy, literature, and news. CEFR-aligned A2 to C1.",
   provider: {
     "@type": "EducationalOrganization",
     name: "Sparks",

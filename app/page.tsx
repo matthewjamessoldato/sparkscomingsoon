@@ -2,11 +2,11 @@
 // Coming-soon page for Sparks.
 //
 // Ported from the Claude Design "Coming Soon.html" handoff (May 2026).
-// Seven sections: hero mosaic + waitlist, the idea, six sources gallery,
+// Seven sections: hero mosaic + waitlist, the idea, source gallery,
 // anatomy of a lesson, library strip, final CTA, footer. Static server
 // component; the rotating headline, scroll-reveal, and Resend-wired waitlist
 // form are small client islands. Imagery is the real Sparks lesson thumbnail
-// set under /public/thumbs and /public/mosaic.
+// set copied from the main Spark repo under /public/illustrations.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { RotatingWord } from "./RotatingWord";
@@ -15,45 +15,48 @@ import { WaitlistForm } from "./WaitlistForm";
 import "./soon.css";
 
 /* ── Hero mosaic tiles ───────────────────────────────────────────────────
-   Canonical current Sparks lesson thumbnails, pulled from the main repo:
-   art lessons use /illustrations/thumbs/<id>.webp, every other family uses
-   /illustrations/specials/<fam>/<lesson-id>/thumb-card.webp. ───────────── */
+   Canonical current Spark lesson thumbnails, pulled from the main repo:
+   /illustrations/specials/<family>/<lesson-id>/thumb.webp. ─────────────── */
 const MOSAIC = [
-  "/illustrations/thumbs/art-the-great-wave-off-kanagawa.webp",
-  "/illustrations/specials/film/film-inception-youre-in-a-dream/thumb-card.webp",
-  "/illustrations/thumbs/art-mona-lisa.webp",
-  "/illustrations/specials/music/music-hey-ya/thumb-card.webp",
-  "/illustrations/thumbs/art-the-starry-night.webp",
-  "/illustrations/specials/news/news-a-cathedral-burned-1-billion-arrived-in-48-hours/thumb-card.webp",
-  "/illustrations/specials/philosophy/philosophy-the-myth-of-sisyphus/thumb-card.webp",
-  "/illustrations/thumbs/art-the-kiss.webp",
-  "/illustrations/specials/science/science-half-the-room-misses-the-gorilla/thumb-card.webp",
-  "/illustrations/thumbs/art-girl-with-a-pearl-earring.webp",
-  "/illustrations/specials/film/film-la-la-land-this-is-not-your-dream/thumb-card.webp",
-  "/illustrations/thumbs/art-las-meninas.webp",
-  "/illustrations/specials/music/music-bohemian-rhapsody/thumb-card.webp",
-  "/illustrations/thumbs/art-the-raft-of-the-medusa.webp",
-  "/illustrations/specials/news/news-33-men-69-days-all-safe/thumb-card.webp",
-  "/illustrations/specials/philosophy/philosophy-the-trolley-problem/thumb-card.webp",
-  "/illustrations/thumbs/art-wanderer-above-the-sea-of-fog.webp",
-  "/illustrations/specials/science/science-sleep-loss-is-like-being-drunk/thumb-card.webp",
-  "/illustrations/thumbs/art-saturn-devouring-his-son.webp",
-  "/illustrations/specials/film/film-the-truman-show-talking-to-the-creator/thumb-card.webp",
-  "/illustrations/thumbs/art-the-third-of-may-1808.webp",
-  "/illustrations/specials/music/music-stand-by-me/thumb-card.webp",
-  "/illustrations/thumbs/art-water-lilies.webp",
-  "/illustrations/specials/news/news-tested-clean-drove-dirty-11-million-cars/thumb-card.webp",
-  "/illustrations/thumbs/art-the-creation-of-adam.webp",
-  "/illustrations/specials/science/science-why-your-favorite-song-gives-you-chills/thumb-card.webp",
-  "/illustrations/specials/philosophy/philosophy-the-ship-of-theseus/thumb-card.webp",
-  "/illustrations/thumbs/art-the-milkmaid.webp",
-  "/illustrations/thumbs/art-paris-street-rainy-day.webp",
-  "/illustrations/specials/music/music-hallelujah/thumb-card.webp",
-  "/illustrations/thumbs/art-the-tower-of-babel.webp",
-  "/illustrations/thumbs/art-olympia.webp",
+  "/illustrations/specials/art/art-the-great-wave-off-kanagawa/thumb.webp",
+  "/illustrations/specials/film/film-inception-youre-in-a-dream/thumb.webp",
+  "/illustrations/specials/art/art-mona-lisa/thumb.webp",
+  "/illustrations/specials/music/music-hey-ya/thumb.webp",
+  "/illustrations/specials/art/art-the-starry-night/thumb.webp",
+  "/illustrations/specials/news/news-a-cathedral-burned-1-billion-arrived-in-48-hours/thumb.webp",
+  "/illustrations/specials/philosophy/philosophy-the-myth-of-sisyphus/thumb.webp",
+  "/illustrations/specials/literature/literature-sonnet-18/thumb.webp",
+  "/illustrations/specials/science/science-half-the-room-misses-the-gorilla/thumb.webp",
+  "/illustrations/specials/art/art-girl-with-a-pearl-earring/thumb.webp",
+  "/illustrations/specials/film/film-la-la-land-this-is-not-your-dream/thumb.webp",
+  "/illustrations/specials/news/news-four-minutes-broken-at-last/thumb.webp",
+  "/illustrations/specials/music/music-bohemian-rhapsody/thumb.webp",
+  "/illustrations/specials/art/art-the-raft-of-the-medusa/thumb.webp",
+  "/illustrations/specials/news/news-33-men-69-days-all-safe/thumb.webp",
+  "/illustrations/specials/philosophy/philosophy-the-trolley-problem/thumb.webp",
+  "/illustrations/specials/art/art-wanderer-above-the-sea-of-fog/thumb.webp",
+  "/illustrations/specials/science/science-sleep-loss-is-like-being-drunk/thumb.webp",
+  "/illustrations/specials/art/art-saturn-devouring-his-son/thumb.webp",
+  "/illustrations/specials/film/film-the-truman-show-talking-to-the-creator/thumb.webp",
+  "/illustrations/specials/literature/literature-hamlet-to-be-or-not-to-be/thumb.webp",
+  "/illustrations/specials/music/music-stand-by-me/thumb.webp",
+  "/illustrations/specials/art/art-water-lilies/thumb.webp",
+  "/illustrations/specials/news/news-tested-clean-drove-dirty-11-million-cars/thumb.webp",
+  "/illustrations/specials/art/art-the-creation-of-adam/thumb.webp",
+  "/illustrations/specials/science/science-why-your-favorite-song-gives-you-chills/thumb.webp",
+  "/illustrations/specials/philosophy/philosophy-the-ship-of-theseus/thumb.webp",
+  "/illustrations/specials/art/art-the-milkmaid/thumb.webp",
+  "/illustrations/specials/film/film-the-matrix-the-last-chance/thumb.webp",
+  "/illustrations/specials/music/music-hallelujah/thumb.webp",
+  "/illustrations/specials/art/art-the-tower-of-babel/thumb.webp",
+  "/illustrations/specials/art/art-olympia/thumb.webp",
+  "/illustrations/specials/literature/literature-if/thumb.webp",
+  "/illustrations/specials/news/news-lost-on-a-train-found-on-google-earth/thumb.webp",
+  "/illustrations/specials/science/science-walking-through-a-doorway-makes-you-forget/thumb.webp",
+  "/illustrations/specials/philosophy/philosophy-who-do-you-owe-first/thumb.webp",
 ];
 
-const SOURCES = ["film", "music", "art", "science", "philosophy", "news"] as const;
+const SOURCES = ["film", "music", "art", "science", "philosophy", "literature", "news"] as const;
 
 /* ── Six-sources gallery ────────────────────────────────────────────────── */
 type GalleryCard = {
@@ -68,7 +71,7 @@ type GalleryCard = {
 };
 const GALLERY: GalleryCard[] = [
   {
-    img: "/illustrations/specials/film/film-inception-youre-in-a-dream/thumb-card.webp",
+    img: "/illustrations/specials/film/film-inception-youre-in-a-dream/thumb.webp",
     fam: "film",
     label: "Film",
     color: "var(--c-film)",
@@ -77,7 +80,7 @@ const GALLERY: GalleryCard[] = [
     alt: "A still evoking Inception — a city folding over itself",
   },
   {
-    img: "/illustrations/specials/music/music-hey-ya/thumb-card.webp",
+    img: "/illustrations/specials/music/music-hey-ya/thumb.webp",
     fam: "music",
     label: "Music",
     color: "var(--c-music)",
@@ -86,7 +89,7 @@ const GALLERY: GalleryCard[] = [
     alt: "A house party, two people dancing as a record plays",
   },
   {
-    img: "/illustrations/thumbs/art-the-great-wave-off-kanagawa.webp",
+    img: "/illustrations/specials/art/art-the-great-wave-off-kanagawa/thumb.webp",
     fam: "art",
     label: "Art",
     color: "var(--c-art)",
@@ -95,7 +98,7 @@ const GALLERY: GalleryCard[] = [
     alt: "The Great Wave off Kanagawa by Hokusai",
   },
   {
-    img: "/illustrations/specials/news/news-33-men-69-days-all-safe/thumb-card.webp",
+    img: "/illustrations/specials/news/news-33-men-69-days-all-safe/thumb.webp",
     fam: "news",
     label: "News",
     color: "var(--c-news)",
@@ -104,7 +107,7 @@ const GALLERY: GalleryCard[] = [
     alt: "Chilean miners being rescued from underground in 2010",
   },
   {
-    img: "/illustrations/specials/science/science-half-the-room-misses-the-gorilla/thumb-card.webp",
+    img: "/illustrations/specials/science/science-half-the-room-misses-the-gorilla/thumb.webp",
     fam: "science",
     label: "Science",
     color: "var(--c-science)",
@@ -113,13 +116,22 @@ const GALLERY: GalleryCard[] = [
     alt: "The invisible gorilla selective-attention experiment",
   },
   {
-    img: "/illustrations/specials/philosophy/philosophy-the-myth-of-sisyphus/thumb-card.webp",
+    img: "/illustrations/specials/philosophy/philosophy-the-myth-of-sisyphus/thumb.webp",
     fam: "philosophy",
     label: "Philosophy",
     color: "var(--c-philosophy)",
     src: "Sisyphus Must Be Happy",
     meta: "Albert Camus, 1942 · C1",
     alt: "An engraving of Sisyphus pushing his boulder up the mountain",
+  },
+  {
+    img: "/illustrations/specials/literature/literature-sonnet-18/thumb.webp",
+    fam: "literature",
+    label: "Literature",
+    color: "var(--c-literature)",
+    src: "Sonnet 18",
+    meta: "William Shakespeare, 1609 · B2",
+    alt: "A warm illustrated scene for Shakespeare's Sonnet 18",
   },
 ];
 
@@ -192,16 +204,26 @@ const STEPS: Step[] = [
 /* ── Library strip ──────────────────────────────────────────────────────── */
 type Lesson = { fam: string; label: string; color: string; img: string; title: string; src: string; lvl: string };
 const LESSONS: Lesson[] = [
-  { fam: "news", label: "News", color: "var(--c-news)", img: "/illustrations/specials/news/news-the-art-that-shredded-itself/thumb-card.webp", title: "The Art That Shredded Itself", src: "Banksy at Sotheby’s, 2018", lvl: "B2" },
-  { fam: "philosophy", label: "Philosophy", color: "var(--c-philosophy)", img: "/illustrations/specials/philosophy/philosophy-behind-the-veil/thumb-card.webp", title: "Behind the Veil", src: "John Rawls, A Theory of Justice (1971)", lvl: "B2" },
-  { fam: "music", label: "Music", color: "var(--c-music)", img: "/illustrations/specials/music/music-wonderwall/thumb-card.webp", title: "Wonderwall", src: "Oasis, 1995", lvl: "B2" },
-  { fam: "science", label: "Science", color: "var(--c-science)", img: "/illustrations/specials/science/science-what-feels-like-learning-isnt-learning/thumb-card.webp", title: "What Feels Like Learning Isn’t Learning", src: "Roediger & Karpicke, 2006", lvl: "B2" },
-  { fam: "film", label: "Film", color: "var(--c-film)", img: "/illustrations/specials/film/film-the-truman-show-talking-to-the-creator/thumb-card.webp", title: "The Truman Show: Talking to the Creator", src: "dir. Peter Weir, 1998", lvl: "B2" },
-  { fam: "art", label: "Art", color: "var(--c-art)", img: "/illustrations/thumbs/art-the-starry-night.webp", title: "The Starry Night", src: "Vincent van Gogh, 1889", lvl: "B2" },
-  { fam: "news", label: "News", color: "var(--c-news)", img: "/illustrations/specials/news/news-one-hundred-million-users-two-years-the-argument-we-couldnt-postpone/thumb-card.webp", title: "One hundred million users. Two years.", src: "ChatGPT launches, Nov 2022", lvl: "C1" },
-  { fam: "music", label: "Music", color: "var(--c-music)", img: "/illustrations/specials/music/music-hallelujah/thumb-card.webp", title: "Hallelujah", src: "Leonard Cohen, 1984", lvl: "C1" },
-  { fam: "philosophy", label: "Philosophy", color: "var(--c-philosophy)", img: "/illustrations/specials/philosophy/philosophy-the-trolley-problem/thumb-card.webp", title: "The Trolley Problem", src: "Philippa Foot, 1967", lvl: "B1" },
+  { fam: "news", label: "News", color: "var(--c-news)", img: "/illustrations/specials/news/news-four-minutes-broken-at-last/thumb.webp", title: "Four Minutes, Broken at Last", src: "Roger Bannister, 1954", lvl: "B1" },
+  { fam: "philosophy", label: "Philosophy", color: "var(--c-philosophy)", img: "/illustrations/specials/philosophy/philosophy-who-do-you-owe-first/thumb.webp", title: "Who Do You Owe First?", src: "Moral obligation · C1", lvl: "C1" },
+  { fam: "music", label: "Music", color: "var(--c-music)", img: "/illustrations/specials/music/music-vienna/thumb.webp", title: "Vienna", src: "Billy Joel, 1977", lvl: "B2" },
+  { fam: "science", label: "Science", color: "var(--c-science)", img: "/illustrations/specials/science/science-walking-through-a-doorway-makes-you-forget/thumb.webp", title: "Walking Through a Doorway Makes You Forget", src: "Event boundaries · B2", lvl: "B2" },
+  { fam: "film", label: "Film", color: "var(--c-film)", img: "/illustrations/specials/film/film-the-matrix-the-last-chance/thumb.webp", title: "The Matrix: The Last Chance", src: "dir. Wachowskis, 1999", lvl: "B2" },
+  { fam: "art", label: "Art", color: "var(--c-art)", img: "/illustrations/specials/art/art-the-garden-of-earthly-delights/thumb.webp", title: "The Garden of Earthly Delights", src: "Hieronymus Bosch, c. 1500", lvl: "C1" },
+  { fam: "literature", label: "Literature", color: "var(--c-literature)", img: "/illustrations/specials/literature/literature-sonnet-18/thumb.webp", title: "Sonnet 18", src: "William Shakespeare, 1609", lvl: "B2" },
+  { fam: "news", label: "News", color: "var(--c-news)", img: "/illustrations/specials/news/news-lost-on-a-train-found-on-google-earth/thumb.webp", title: "Lost on a Train, Found on Google Earth", src: "A missing person story", lvl: "B2" },
+  { fam: "music", label: "Music", color: "var(--c-music)", img: "/illustrations/specials/music/music-what-a-wonderful-world/thumb.webp", title: "What a Wonderful World", src: "Louis Armstrong, 1967", lvl: "A2" },
 ];
+
+const TYPE_TILES = [
+  { label: "Film", img: "/illustrations/library/type-tiles/film.webp", color: "var(--c-film)" },
+  { label: "Music", img: "/illustrations/library/type-tiles/music.webp", color: "var(--c-music)" },
+  { label: "Art", img: "/illustrations/library/type-tiles/art.webp", color: "var(--c-art)" },
+  { label: "Science", img: "/illustrations/library/type-tiles/science.webp", color: "var(--c-science)" },
+  { label: "Philosophy", img: "/illustrations/library/type-tiles/philosophy.webp", color: "var(--c-philosophy)" },
+  { label: "Literature", img: "/illustrations/library/type-tiles/literature.webp", color: "var(--c-literature)" },
+  { label: "News", img: "/illustrations/library/type-tiles/news.webp", color: "var(--c-news)" },
+] as const;
 
 export default function SoonPage() {
   return (
@@ -241,7 +263,7 @@ export default function SoonPage() {
           </h1>
           <p className="hero-lede fx d3">
             Ready-to-teach conversation lessons for adults, built on real art,
-            film, music, science, philosophy and news. You bring the class — the
+            film, music, science, philosophy, literature and news. You bring the class — the
             lesson is already done.
           </p>
           <p className="hero-sublede fx d3">
@@ -339,7 +361,7 @@ export default function SoonPage() {
               <div className="kicker" style={{ marginBottom: 0 }}>
                 02 · Where we start
               </div>
-              <h2 className="sec-title">Six places a lesson can begin.</h2>
+              <h2 className="sec-title">Seven places a lesson can begin.</h2>
             </div>
             <p className="sec-note">
               Each family brings its own kind of conversation. A single source
@@ -380,7 +402,7 @@ export default function SoonPage() {
               <div className="ana-mount">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/illustrations/specials/news/news-a-cathedral-burned-1-billion-arrived-in-48-hours/thumb-card.webp"
+                  src="/illustrations/specials/news/news-a-cathedral-burned-1-billion-arrived-in-48-hours/thumb.webp"
                   alt="Notre-Dame de Paris ablaze at dusk as firefighters work below — 15 April 2019"
                 />
               </div>
@@ -441,6 +463,34 @@ export default function SoonPage() {
               A few of the sources already written. New ones land every week.
             </p>
           </div>
+          <div className="library-feature reveal">
+            <div className="library-feature-media">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/illustrations/marketing/hero-library-sticker-system.webp"
+                alt="Illustrated Spark library categories arranged as source cards"
+                loading="lazy"
+              />
+            </div>
+            <div className="library-feature-copy">
+              <span className="library-feature-eyebrow">The library system</span>
+              <h3>One shelf for every source-led hour.</h3>
+              <p>
+                The new Spark illustration set gives every family its own visual
+                language while keeping the lesson cards recognisably part of the
+                same system.
+              </p>
+            </div>
+          </div>
+          <div className="type-tiles reveal" aria-label="Spark source families">
+            {TYPE_TILES.map((tile) => (
+              <div className="type-tile" key={tile.label}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={tile.img} alt="" loading="lazy" />
+                <span style={{ color: tile.color }}>{tile.label}</span>
+              </div>
+            ))}
+          </div>
           <div className="lib-grid reveal">
             {LESSONS.map((l) => (
               <article className="lcard" key={l.title}>
@@ -498,10 +548,11 @@ export default function SoonPage() {
             sparks<span className="dot">.</span>
           </span>
           <span className="meta">
-            Source-led English · Film · Music · Art · Science · Philosophy · News
+            Source-led English · Film · Music · Art · Science · Philosophy · Literature · News
           </span>
           <span className="meta">
-            © 2026 Sparks · <a href="/privacy">Privacy</a>
+            © 2026 Sparks · <a href="/legal/privacy">Privacy</a> ·{" "}
+            <a href="/legal/terms">Terms</a>
           </span>
         </div>
       </footer>
