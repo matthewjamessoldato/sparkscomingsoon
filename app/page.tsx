@@ -305,7 +305,7 @@ export default function SoonPage() {
         <div className="wrap">
           <div className="kicker reveal">01 · The idea</div>
           <h2 className="idea-lead reveal">
-            Every lesson begins with something <em>real</em>.
+            Every lesson begins with something <span>real</span>.
           </h2>
           <p className="idea-body reveal">
             Every Sparks lesson is built on a real cultural source — a painting,

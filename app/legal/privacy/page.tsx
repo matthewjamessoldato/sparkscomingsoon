@@ -90,7 +90,7 @@ const SECTIONS: LegalSectionNode[] = [
         <p>
           We have not appointed a Data Protection Officer because our processing does not meet the
           thresholds in GDPR Art. 37. We are established in Italy and process personal data from our
-          Italian establishment, so no representative under <em>EU</em> GDPR Art. 27 is required for
+          Italian establishment, so no representative under EU GDPR Art. 27 is required for
           processing carried out by Sparks itself. For any privacy question, write to the privacy
           email above. We respond within thirty days as required by GDPR Art. 12, extendable by up
           to two further months for complex requests with written notice and reasons.

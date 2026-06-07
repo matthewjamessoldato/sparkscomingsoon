@@ -583,7 +583,7 @@ img {
   margin: 22px 0 0;
   text-wrap: balance;
 }
-.idea-lead em {
+.idea-lead span {
   font-style: normal;
   color: var(--orange-soft);
 }
