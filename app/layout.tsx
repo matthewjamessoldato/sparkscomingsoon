@@ -22,7 +22,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Sparks — Source-Led ESL Conversation Lessons | Art, Film, Music & More",
   description:
-    "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned A2-C1. No textbook filler — every lesson starts with a real cultural source.",
+    "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned A1-C2. No textbook filler — every lesson starts with a real cultural source.",
   keywords: [
     "online ESL course",
     "adult ESL conversation lessons",
@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     "learn English with music",
     "ESL speaking practice",
     "CEFR English course online",
+    "A1 to C2 English lessons",
     "B1 B2 English lessons",
     "ESL lesson plans for adults",
     "English conversation class online",
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sparks — Source-Led ESL Conversation Lessons",
     description:
-      "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned. No textbook filler.",
+      "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned A1-C2. No textbook filler.",
     siteName: "Sparks",
     url: SITE_URL,
     type: "website",
@@ -54,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sparks — Source-Led ESL Conversation Lessons",
     description:
-      "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned. No textbook filler.",
+      "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned A1-C2. No textbook filler.",
   },
 };
 
@@ -85,13 +86,13 @@ const courseLd = {
   "@type": "Course",
   name: "Sparks ESL Conversation Course",
   description:
-    "Source-led English conversation lessons for adults, built around real art, film, music, science, philosophy, literature, and news. CEFR-aligned A2 to C1.",
+    "Source-led English conversation lessons for adults, built around real art, film, music, science, philosophy, literature, and news. CEFR-aligned A1 to C2.",
   provider: {
     "@type": "EducationalOrganization",
     name: "Sparks",
     url: SITE_URL,
   },
-  educationalLevel: ["A2", "B1", "B2", "C1"],
+  educationalLevel: ["A1", "A2", "B1", "B2", "C1", "C2"],
   inLanguage: "en",
   teaches: "English as a Second Language",
   hasCourseInstance: {

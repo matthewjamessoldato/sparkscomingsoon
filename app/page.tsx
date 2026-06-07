@@ -132,95 +132,94 @@ const GALLERY: GalleryCard[] = [
   },
 ];
 
-/* ── Anatomy steps ──────────────────────────────────────────────────────── */
-type Step = { n: string; k: string; h: string; body?: string; quote?: string; lang?: string[] };
-const STEPS: Step[] = [
+/* ── New flexible lesson showcase: Sonnet 18 ────────────────────────────── */
+type ShowcaseSlide = {
+  n: string;
+  k: string;
+  h: string;
+  time: string;
+  body?: string;
+  quote?: string;
+  lang?: string[];
+};
+const SHOWCASE_SLIDES: ShowcaseSlide[] = [
   {
     n: "01",
-    k: "Hook",
-    h: "A door into the lesson",
-    body:
-      "You are on a bridge in Paris. Across the river, the spire of an 850-year-old cathedral is on fire. Strangers stand beside you in silence; some are singing. What do you feel — and why so strongly, for a building?",
+    k: "Lead-in",
+    h: "What makes something last forever?",
+    time: "5 min",
+    quote:
+      "Can you think of something made by a human being that you believe will still be remembered in 500 years?",
   },
   {
     n: "02",
-    k: "Background",
-    h: "Enough context to argue",
-    body:
-      "One slide. Notre-Dame: 856 years old, 13 million visitors a year, a spire added in 1859, a crown of thorns inside. Students don't need to be historians — they need three facts and a reason to care. Then you show them the photograph.",
+    k: "Pre-reading",
+    h: "Key words before you read",
+    time: "5 min",
+    lang: ["eternal", "temperate", "complexion", "fair", "fade"],
   },
   {
     n: "03",
-    k: "The source",
-    h: "An encounter with the real thing",
+    k: "Source text",
+    h: "Sonnet 18 — William Shakespeare",
+    time: "5 min",
     quote:
-      "By the next morning, nearly a billion euros had been pledged to rebuild a roof that had stood for eight centuries — and the argument had already begun.",
+      "Shall I compare thee to a summer's day? Thou art more lovely and more temperate.",
   },
   {
     n: "04",
     k: "Comprehension",
-    h: "Check before you move on",
+    h: "What does Shakespeare actually say?",
+    time: "7 min",
     body:
-      "Two questions, one minute each. What surprised you most? What do you still want to know? Every student has an answer — and the second question opens the whole discussion before the discussion has officially started.",
+      "Students answer from the poem, not from memory: the summer comparison, the short lease of beauty, the sun metaphor, and the final couplet.",
   },
   {
     n: "05",
-    k: "Language",
-    h: "The words you'll actually need",
+    k: "Language focus",
+    h: "Contrast and certainty",
+    time: "8 min",
     body:
-      "Lifted from the moment, pitched to the level — phrases for reacting to loss and weighing what something is worth.",
+      "The language comes from the source: contrast, concession, and absolute certainty.",
     lang: [
-      "I couldn't believe it when…",
-      "It hit me harder than I expected…",
-      "You have to weigh that against…",
+      "Unlike…, you…",
+      "While…may fade, …will endure",
+      "As long as…, so too will…",
     ],
   },
   {
     n: "06",
-    k: "Activate",
-    h: "Use the phrase before you need it",
+    k: "Deeper discussion",
+    h: "What is Shakespeare really claiming?",
+    time: "10 min",
     body:
-      "Pair work. Sixty seconds. One prompt each. The goal: use at least one phrase from the list before the timer ends. It's a rehearsal, not a performance — and it's the step that makes the main discussion feel fluent rather than halting.",
+      "Small groups choose a question: arrogant or romantic? More powerful without a named person? Does art really outlive beauty?",
   },
   {
     n: "07",
-    k: "Discussion",
-    h: "The question worth an hour",
+    k: "Critical thinking",
+    h: "Timeless, or showing its age?",
+    time: "10 min",
     quote:
-      "Why does the world stop to mourn a building, when so much else is lost without a word?",
+      "Half the class argues timeless. Half argues dated. Prepare for two minutes, then debate.",
   },
   {
     n: "08",
-    k: "Final task",
-    h: "Make your case",
+    k: "Production task",
+    h: "A modern version",
+    time: "8 min",
     body:
-      "A newspaper gives you sixty seconds. That billion euros: was it right to spend it rebuilding the cathedral — or should it have gone somewhere else entirely? Take a side and defend it.",
+      "Rewrite the argument of Sonnet 18 for today. What would you compare a person to instead of a summer's day?",
+  },
+  {
+    n: "09",
+    k: "Reflection",
+    h: "One minute, one thought",
+    time: "2 min",
+    quote:
+      "What is one idea from today's lesson — from the poem or from the discussion — that you want to keep thinking about?",
   },
 ];
-
-/* ── Library strip ──────────────────────────────────────────────────────── */
-type Lesson = { fam: string; label: string; color: string; img: string; title: string; src: string; lvl: string };
-const LESSONS: Lesson[] = [
-  { fam: "news", label: "News", color: "var(--c-news)", img: "/illustrations/specials/news/news-four-minutes-broken-at-last/thumb.webp", title: "Four Minutes, Broken at Last", src: "Roger Bannister, 1954", lvl: "B1" },
-  { fam: "philosophy", label: "Philosophy", color: "var(--c-philosophy)", img: "/illustrations/specials/philosophy/philosophy-who-do-you-owe-first/thumb.webp", title: "Who Do You Owe First?", src: "Moral obligation · C1", lvl: "C1" },
-  { fam: "music", label: "Music", color: "var(--c-music)", img: "/illustrations/specials/music/music-vienna/thumb.webp", title: "Vienna", src: "Billy Joel, 1977", lvl: "B2" },
-  { fam: "science", label: "Science", color: "var(--c-science)", img: "/illustrations/specials/science/science-walking-through-a-doorway-makes-you-forget/thumb.webp", title: "Walking Through a Doorway Makes You Forget", src: "Event boundaries · B2", lvl: "B2" },
-  { fam: "film", label: "Film", color: "var(--c-film)", img: "/illustrations/specials/film/film-the-matrix-the-last-chance/thumb.webp", title: "The Matrix: The Last Chance", src: "dir. Wachowskis, 1999", lvl: "B2" },
-  { fam: "art", label: "Art", color: "var(--c-art)", img: "/illustrations/specials/art/art-the-garden-of-earthly-delights/thumb.webp", title: "The Garden of Earthly Delights", src: "Hieronymus Bosch, c. 1500", lvl: "C1" },
-  { fam: "literature", label: "Literature", color: "var(--c-literature)", img: "/illustrations/specials/literature/literature-sonnet-18/thumb.webp", title: "Sonnet 18", src: "William Shakespeare, 1609", lvl: "B2" },
-  { fam: "news", label: "News", color: "var(--c-news)", img: "/illustrations/specials/news/news-lost-on-a-train-found-on-google-earth/thumb.webp", title: "Lost on a Train, Found on Google Earth", src: "A missing person story", lvl: "B2" },
-  { fam: "music", label: "Music", color: "var(--c-music)", img: "/illustrations/specials/music/music-what-a-wonderful-world/thumb.webp", title: "What a Wonderful World", src: "Louis Armstrong, 1967", lvl: "A2" },
-];
-
-const TYPE_TILES = [
-  { label: "Film", img: "/illustrations/library/type-tiles/film.webp", color: "var(--c-film)" },
-  { label: "Music", img: "/illustrations/library/type-tiles/music.webp", color: "var(--c-music)" },
-  { label: "Art", img: "/illustrations/library/type-tiles/art.webp", color: "var(--c-art)" },
-  { label: "Science", img: "/illustrations/library/type-tiles/science.webp", color: "var(--c-science)" },
-  { label: "Philosophy", img: "/illustrations/library/type-tiles/philosophy.webp", color: "var(--c-philosophy)" },
-  { label: "Literature", img: "/illustrations/library/type-tiles/literature.webp", color: "var(--c-literature)" },
-  { label: "News", img: "/illustrations/library/type-tiles/news.webp", color: "var(--c-news)" },
-] as const;
 
 export default function SoonPage() {
   return (
@@ -229,7 +228,7 @@ export default function SoonPage() {
       <RevealObserver />
 
       {/* ══════════════ HERO ══════════════ */}
-      <header className="hero">
+      <header className="hero" id="top">
         <div className="hero-mosaic" aria-hidden="true">
           {/* Plain <img> (not next/image): the image wall relies
               on every tile keeping a stable square crop. The images are
@@ -267,12 +266,12 @@ export default function SoonPage() {
             <RotatingWord />
           </h1>
           <p className="hero-lede fx d3">
-            Ready-to-teach conversation lessons for adults, built on real art,
-            film, music, science, philosophy, literature and news. You bring the
-            class — the lesson is already done.
+            Coming soon: ready-to-teach conversation lessons for adults, built
+            around real sources. Each Spark becomes the hour its source needs —
+            up to nine clear slides, from A1 to C2.
           </p>
           <p className="hero-sublede fx d3">
-            No prep. No filler. Just real conversation.
+            Join the waitlist and get the first teacher-ready lessons when we open.
           </p>
 
           <p className="source-line fx d4">
@@ -289,13 +288,13 @@ export default function SoonPage() {
             <p className="wl-head">Be the first to teach with Sparks.</p>
             <WaitlistForm
               buttonLabel="Join the waitlist"
-              micro="No spam, ever — just one email the day we open to teachers."
+              micro="One launch email. No spam. Built for teachers first."
             />
           </div>
         </div>
 
-        <a className="scroll-cue" href="#idea" aria-label="Scroll to learn more">
-          <span>What is sparks</span>
+        <a className="scroll-cue" href="#anatomy" aria-label="Scroll to see the example lesson">
+          <span>See example lesson</span>
           <span className="ln" />
         </a>
       </header>
@@ -305,43 +304,40 @@ export default function SoonPage() {
         <div className="wrap">
           <div className="kicker reveal">01 · The idea</div>
           <h2 className="idea-lead reveal">
-            Every lesson begins with something <span>real</span>.
+            A real source becomes a <span>speaking hour</span>.
           </h2>
           <p className="idea-body reveal">
-            Every Sparks lesson is built on a real cultural source — a painting,
-            a song, a film scene, a headline, a thought experiment — instead of a
-            textbook unit invented to drill a tense. The source gives adults
-            something they actually want to argue about, so the talking takes
-            care of itself. You walk in with a complete lesson and spend the hour
-            listening, not lecturing.
+            Sparks turns art, literature, music, film, science, philosophy and
+            news into complete adult conversation lessons. The source sets the
+            route: sometimes vocabulary first, sometimes the text immediately,
+            sometimes a debate, a rewrite, or a single question that carries the
+            room.
           </p>
 
           <div className="idea-grid reveal">
             <div className="idea-cell">
-              <span className="n">A · Real sources</span>
-              <h3>Worth arguing about</h3>
+              <span className="n">A · Source first</span>
+              <h3>The material leads</h3>
               <p>
-                Hopper, Hokusai, Banksy, OutKast, Camus, the night Notre-Dame
-                burned. Material adults already have opinions about — so the
-                conversation is real, not rehearsed.
+                A sonnet should not move like a film scene. A news story should
+                not move like a song. The source sets the rhythm, the language,
+                and the task.
               </p>
             </div>
             <div className="idea-cell">
-              <span className="n">B · Zero prep</span>
+              <span className="n">B · Up to nine slides</span>
+              <h3>Enough, never padded</h3>
+              <p>
+                A Spark is short enough to scan before class and complete enough
+                to carry the hour. Every slide has to earn its place.
+              </p>
+            </div>
+            <div className="idea-cell">
+              <span className="n">C · Teacher-ready</span>
               <h3>Open it and teach</h3>
               <p>
-                Each lesson is a complete, timed 60-minute arc — hook, source,
-                language, practice, discussion, final task. Nothing to print,
-                plan, or pad. Walk in and run it.
-              </p>
-            </div>
-            <div className="idea-cell">
-              <span className="n">C · Every student talks</span>
-              <h3>Pitched A2 → C2</h3>
-              <p>
-                A clear speaking goal and tasks that pull in the whole room — not
-                just the confident one. Every source is levelled, so you teach the
-                right class in seconds.
+                Clear timing, visible speaking tasks, usable language, and a
+                final moment that makes adults talk.
               </p>
             </div>
           </div>
@@ -359,8 +355,8 @@ export default function SoonPage() {
               <h2 className="sec-title">Seven places a lesson can begin.</h2>
             </div>
             <p className="sec-note">
-              Each family brings its own kind of conversation. A single source
-              can power a full hour of speaking.
+              A painting, song, poem, scene, study or headline can each become a
+              complete hour of adult speaking.
             </p>
           </div>
 
@@ -390,41 +386,70 @@ export default function SoonPage() {
       <section className="section anatomy" id="anatomy">
         <div className="wrap">
           <div className="kicker reveal" style={{ marginBottom: 48 }}>
-            03 · Anatomy of a lesson
+            03 · Example rebuilt lesson
           </div>
           <div className="ana-grid">
             <div className="ana-figure reveal">
               <div className="ana-mount">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/illustrations/specials/news/news-a-cathedral-burned-1-billion-arrived-in-48-hours/thumb.webp"
-                  alt="Notre-Dame de Paris ablaze at dusk as firefighters work below — 15 April 2019"
+                  src="/illustrations/specials/literature/literature-sonnet-18/thumb.webp"
+                  alt="Illustrated portrait of William Shakespeare on a dark blue background"
                 />
               </div>
               <div className="ana-cap">
                 <span className="dot" />
-                News · the source
+                Literature · B2 speaking lesson
               </div>
               <div className="ana-figtitle">
-                A cathedral burned. €1 billion arrived in 48 hours.
+                Sonnet 18: what makes something last forever?
               </div>
               <p className="ana-figsub">
-                Notre-Dame, Paris — April 2019. An 850-year-old cathedral caught
-                fire in front of the world, and within two days nearly a billion
-                euros had been pledged to rebuild it.
+                A nine-slide lesson from the new authoring direction: source
+                text, vocabulary only where useful, live discussion, critical
+                thinking, and a production task that brings the poem into today.
               </p>
               <div className="ana-meta">
-                <span className="metachip">CEFR B2</span>
+                <span className="metachip">B2</span>
+                <span className="metachip">9 slides max</span>
                 <span className="metachip">60 min</span>
-                <span className="metachip">Speaking</span>
-                <span className="metachip">Discussion</span>
+                <span className="metachip">Source-shaped</span>
+              </div>
+              <div className="class-preview" aria-label="In-class lesson preview">
+                <div className="class-preview-top">
+                  <span>Presentation mode</span>
+                  <span>Slide 8 / 9</span>
+                </div>
+                <div className="class-screen">
+                  <span className="class-phase">Production task</span>
+                  <h4>Your turn: a modern version</h4>
+                  <p>
+                    Rewrite the argument of Sonnet 18 for today. What would you
+                    compare a person to instead of a summer&apos;s day?
+                  </p>
+                </div>
+                <div className="class-support">
+                  <div>
+                    <span>Teacher notes</span>
+                    <p>
+                      Pair students first. Listen for contrast and certainty
+                      structures before opening the room.
+                    </p>
+                  </div>
+                  <div>
+                    <span>Worksheet language</span>
+                    <p>Unlike..., While... may fade, As long as...</p>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div className="steps reveal">
-              {STEPS.map((s) => (
+              {SHOWCASE_SLIDES.map((s) => (
                 <div className="step" data-n={s.n} key={s.n}>
-                  <div className="step-k">{s.k}</div>
+                  <div className="step-k">
+                    {s.k} · {s.time}
+                  </div>
                   <h4>{s.h}</h4>
                   {s.body && <p>{s.body}</p>}
                   {s.quote && <p className="quote">{s.quote}</p>}
@@ -444,96 +469,21 @@ export default function SoonPage() {
         </div>
       </section>
 
-      {/* ══════════════ LIBRARY ══════════════ */}
-      <section className="section library" id="library">
-        <div className="wrap">
-          <div className="sec-head reveal">
-            <div>
-              <div className="kicker" style={{ marginBottom: 0 }}>
-                04 · A growing library
-              </div>
-              <h2 className="sec-title">Lessons, not lesson plans.</h2>
-            </div>
-            <p className="sec-note">
-              A few of the sources already written. New ones land every week.
-            </p>
-          </div>
-          <div className="library-feature reveal">
-            <div className="library-feature-media">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/illustrations/marketing/hero-library-sticker-system.webp"
-                alt="Illustrated Spark library categories arranged as source cards"
-                loading="lazy"
-              />
-            </div>
-            <div className="library-feature-copy">
-              <span className="library-feature-eyebrow">The library system</span>
-              <h3>One shelf for every source-led hour.</h3>
-              <p>
-                The new Spark illustration set gives every family its own visual
-                language while keeping the lesson cards recognisably part of the
-                same system.
-              </p>
-            </div>
-          </div>
-          <div className="type-tiles reveal" aria-label="Spark source families">
-            {TYPE_TILES.map((tile) => (
-              <div className="type-tile" key={tile.label}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={tile.img} alt="" loading="lazy" />
-                <span style={{ color: tile.color }}>{tile.label}</span>
-              </div>
-            ))}
-          </div>
-          <div className="lib-grid reveal">
-            {LESSONS.map((l) => (
-              <article className="lcard" key={l.title}>
-                <div className="lcard-thumb">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={l.img} alt="" loading="lazy" />
-                </div>
-                <div className="lcard-top">
-                  <span className="lcard-fam" style={{ color: l.color }}>
-                    <span className="dot" style={{ background: l.color }} />
-                    {l.label}
-                  </span>
-                  <span className="lcard-lvl">{l.lvl}</span>
-                </div>
-                <h4>{l.title}</h4>
-                <div className="src">{l.src}</div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ══════════════ CTA ══════════════ */}
       <section className="section cta" id="join">
         <div className="cta-glow" aria-hidden="true" />
         <div className="wrap">
           <div className="kicker reveal" style={{ justifyContent: "center" }}>
-            05 · Join the waitlist
+            04 · Join the waitlist
           </div>
-          <h2 className="cta-title reveal">We&apos;re nearly ready to begin.</h2>
+          <h2 className="cta-title reveal">Sparks is coming soon.</h2>
           <p className="cta-sub reveal">
-            Leave your email and we&apos;ll send one note the day Sparks goes
-            live — with a free lesson to try first.
+            Leave your email in the hero and we&apos;ll send one note when the
+            first Sparks are ready to teach.
           </p>
-          <div
-            className="reveal"
-            style={{
-              width: "min(100%,440px)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <WaitlistForm
-              buttonLabel="Notify me"
-              micro="One email. No spam. Unsubscribe in a click."
-            />
-          </div>
+          <a className="cta-jump reveal" href="#top">
+            Back to the email box
+          </a>
         </div>
       </section>
 
