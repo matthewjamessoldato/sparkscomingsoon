@@ -1,17 +1,17 @@
 "use client";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// RotatingWord — the hero's cycling headline noun ("a painting" → "a film
-// scene" → …). Mirrors the Coming Soon design's rotWord script. Respects
-// prefers-reduced-motion by holding the first word.
+// RotatingWord — the hero's cycling headline noun. Mirrors the Coming Soon
+// design's rotWord script. Respects prefers-reduced-motion by holding the first
+// word.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useEffect, useRef, useState } from "react";
 
 const WORDS = [
   "a painting",
-  "a film scene",
-  "a song",
+  "a poem",
+  "a study",
   "a headline",
   "a big question",
   "something real",

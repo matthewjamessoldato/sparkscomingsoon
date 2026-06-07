@@ -157,7 +157,7 @@ export async function joinWaitlist(
               You're in. We'll let you know the moment Sparks launches.
             </p>
             <p style="font-size: 15px; line-height: 1.6; color: #4a4742; margin: 0 0 24px;">
-              Source-led English lessons built around real art, film, music,
+              Source-led English lessons built around real art, literature,
               science, philosophy, and news. No filler. No fluff. Just honest.
             </p>
             <p style="font-size: 13px; color: #6b6660; margin: 0;">

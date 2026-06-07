@@ -25,8 +25,6 @@
   --sans: var(--font-inter), system-ui, sans-serif;
 
   /* family ink — brightened for dark legibility */
-  --c-film: #f26a5a;
-  --c-music: #e89a3c;
   --c-art: #6097ef;
   --c-news: #e0625c;
   --c-science: #3fbe8e;

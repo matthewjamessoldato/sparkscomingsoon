@@ -16,44 +16,45 @@ import "./soon.css";
    /illustrations/specials/<family>/<lesson-id>/thumb.webp. ─────────────── */
 const MOSAIC = [
   "/illustrations/specials/art/art-the-great-wave-off-kanagawa/thumb.webp",
-  "/illustrations/specials/film/film-inception-youre-in-a-dream/thumb.webp",
   "/illustrations/specials/art/art-mona-lisa/thumb.webp",
-  "/illustrations/specials/music/music-hey-ya/thumb.webp",
   "/illustrations/specials/art/art-the-starry-night/thumb.webp",
   "/illustrations/specials/news/news-a-cathedral-burned-1-billion-arrived-in-48-hours/thumb.webp",
   "/illustrations/specials/philosophy/philosophy-the-myth-of-sisyphus/thumb.webp",
   "/illustrations/specials/literature/literature-sonnet-18/thumb.webp",
   "/illustrations/specials/science/science-half-the-room-misses-the-gorilla/thumb.webp",
   "/illustrations/specials/art/art-girl-with-a-pearl-earring/thumb.webp",
-  "/illustrations/specials/film/film-la-la-land-this-is-not-your-dream/thumb.webp",
   "/illustrations/specials/news/news-four-minutes-broken-at-last/thumb.webp",
-  "/illustrations/specials/music/music-bohemian-rhapsody/thumb.webp",
   "/illustrations/specials/art/art-the-raft-of-the-medusa/thumb.webp",
   "/illustrations/specials/news/news-33-men-69-days-all-safe/thumb.webp",
   "/illustrations/specials/philosophy/philosophy-the-trolley-problem/thumb.webp",
   "/illustrations/specials/art/art-wanderer-above-the-sea-of-fog/thumb.webp",
   "/illustrations/specials/science/science-sleep-loss-is-like-being-drunk/thumb.webp",
   "/illustrations/specials/art/art-saturn-devouring-his-son/thumb.webp",
-  "/illustrations/specials/film/film-the-truman-show-talking-to-the-creator/thumb.webp",
   "/illustrations/specials/literature/literature-hamlet-to-be-or-not-to-be/thumb.webp",
-  "/illustrations/specials/music/music-stand-by-me/thumb.webp",
   "/illustrations/specials/art/art-water-lilies/thumb.webp",
   "/illustrations/specials/news/news-tested-clean-drove-dirty-11-million-cars/thumb.webp",
   "/illustrations/specials/art/art-the-creation-of-adam/thumb.webp",
-  "/illustrations/specials/science/science-why-your-favorite-song-gives-you-chills/thumb.webp",
   "/illustrations/specials/philosophy/philosophy-the-ship-of-theseus/thumb.webp",
   "/illustrations/specials/art/art-the-milkmaid/thumb.webp",
-  "/illustrations/specials/film/film-the-matrix-the-last-chance/thumb.webp",
-  "/illustrations/specials/music/music-hallelujah/thumb.webp",
   "/illustrations/specials/art/art-the-tower-of-babel/thumb.webp",
   "/illustrations/specials/art/art-olympia/thumb.webp",
   "/illustrations/specials/literature/literature-if/thumb.webp",
   "/illustrations/specials/news/news-lost-on-a-train-found-on-google-earth/thumb.webp",
   "/illustrations/specials/science/science-walking-through-a-doorway-makes-you-forget/thumb.webp",
   "/illustrations/specials/philosophy/philosophy-who-do-you-owe-first/thumb.webp",
+  "/illustrations/specials/science/science-what-feels-like-learning-isnt-learning/thumb.webp",
+  "/illustrations/specials/science/science-what-did-the-marshmallow-test-actually-show/thumb.webp",
+  "/illustrations/specials/philosophy/philosophy-the-experience-machine/thumb.webp",
+  "/illustrations/specials/philosophy/philosophy-the-drowning-child/thumb.webp",
+  "/illustrations/specials/literature/literature-stopping-by-woods-on-a-snowy-evening/thumb.webp",
+  "/illustrations/specials/literature/literature-the-tortoise-and-the-hare/thumb.webp",
+  "/illustrations/specials/art/art-the-last-supper/thumb.webp",
+  "/illustrations/specials/art/art-fountain/thumb.webp",
+  "/illustrations/specials/news/news-one-hundred-million-users-two-years-the-argument-we-couldnt-postpone/thumb.webp",
+  "/illustrations/specials/news/news-the-art-that-shredded-itself/thumb.webp",
 ];
 
-const SOURCES = ["film", "music", "art", "science", "philosophy", "literature", "news"] as const;
+const SOURCES = ["art", "literature", "science", "philosophy", "news"] as const;
 
 /* ── Source gallery ─────────────────────────────────────────────────────── */
 type GalleryCard = {
@@ -68,24 +69,6 @@ type GalleryCard = {
 };
 const GALLERY: GalleryCard[] = [
   {
-    img: "/illustrations/specials/film/film-inception-youre-in-a-dream/thumb.webp",
-    fam: "film",
-    label: "Film",
-    color: "var(--c-film)",
-    src: "Inception: You're in a Dream",
-    meta: "Christopher Nolan, 2010 · C2",
-    alt: "A still evoking Inception — a city folding over itself",
-  },
-  {
-    img: "/illustrations/specials/music/music-hey-ya/thumb.webp",
-    fam: "music",
-    label: "Music",
-    color: "var(--c-music)",
-    src: "Hey Ya!",
-    meta: "OutKast, 2003 · B2",
-    alt: "A house party, two people dancing as a record plays",
-  },
-  {
     img: "/illustrations/specials/art/art-the-great-wave-off-kanagawa/thumb.webp",
     fam: "art",
     label: "Art",
@@ -93,6 +76,15 @@ const GALLERY: GalleryCard[] = [
     src: "The Great Wave off Kanagawa",
     meta: "Hokusai, c. 1830 · A2",
     alt: "The Great Wave off Kanagawa by Hokusai",
+  },
+  {
+    img: "/illustrations/specials/literature/literature-sonnet-18/thumb.webp",
+    fam: "literature",
+    label: "Literature",
+    color: "var(--c-literature)",
+    src: "Sonnet 18",
+    meta: "William Shakespeare, 1609 · B2",
+    alt: "A warm illustrated scene for Shakespeare's Sonnet 18",
   },
   {
     img: "/illustrations/specials/news/news-33-men-69-days-all-safe/thumb.webp",
@@ -122,13 +114,13 @@ const GALLERY: GalleryCard[] = [
     alt: "An engraving of Sisyphus pushing his boulder up the mountain",
   },
   {
-    img: "/illustrations/specials/literature/literature-sonnet-18/thumb.webp",
+    img: "/illustrations/specials/literature/literature-if/thumb.webp",
     fam: "literature",
     label: "Literature",
     color: "var(--c-literature)",
-    src: "Sonnet 18",
-    meta: "William Shakespeare, 1609 · B2",
-    alt: "A warm illustrated scene for Shakespeare's Sonnet 18",
+    src: "If",
+    meta: "Rudyard Kipling, 1910 · C1",
+    alt: "A warm illustrated lesson thumbnail for Kipling's poem If",
   },
 ];
 
@@ -307,11 +299,11 @@ export default function SoonPage() {
             A real source becomes a <span>speaking hour</span>.
           </h2>
           <p className="idea-body reveal">
-            Sparks turns art, literature, music, film, science, philosophy and
-            news into complete adult conversation lessons. The source sets the
-            route: sometimes vocabulary first, sometimes the text immediately,
-            sometimes a debate, a rewrite, or a single question that carries the
-            room.
+            Sparks turns art, literature, science, philosophy and news into
+            complete adult conversation lessons. The source sets the route:
+            sometimes vocabulary first, sometimes the text immediately,
+            sometimes a debate, a rewrite, or a single question that carries
+            the room.
           </p>
 
           <div className="idea-grid reveal">
@@ -319,9 +311,9 @@ export default function SoonPage() {
               <span className="n">A · Source first</span>
               <h3>The material leads</h3>
               <p>
-                A sonnet should not move like a film scene. A news story should
-                not move like a song. The source sets the rhythm, the language,
-                and the task.
+                A sonnet should not move like a science study. A headline
+                should not move like a painting. The source sets the rhythm,
+                the language, and the task.
               </p>
             </div>
             <div className="idea-cell">
@@ -352,10 +344,10 @@ export default function SoonPage() {
               <div className="kicker" style={{ marginBottom: 0 }}>
                 02 · Where we start
               </div>
-              <h2 className="sec-title">Seven places a lesson can begin.</h2>
+              <h2 className="sec-title">Five places a lesson can begin.</h2>
             </div>
             <p className="sec-note">
-              A painting, song, poem, scene, study or headline can each become a
+              A painting, poem, study, question or headline can each become a
               complete hour of adult speaking.
             </p>
           </div>
@@ -493,7 +485,7 @@ export default function SoonPage() {
             sparks<span className="dot">.</span>
           </span>
           <span className="meta">
-            Source-led English · Film · Music · Art · Science · Philosophy · Literature · News
+            Source-led English · Art · Literature · Science · Philosophy · News
           </span>
           <span className="meta">
             © 2026 Sparks · <a href="/legal/privacy">Privacy</a> ·{" "}

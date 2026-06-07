@@ -20,14 +20,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Sparks — Source-Led ESL Conversation Lessons | Art, Film, Music & More",
+  title: "Sparks — Source-Led ESL Conversation Lessons | Art, Literature & More",
   description:
-    "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned A1-C2. No textbook filler — every lesson starts with a real cultural source.",
+    "Premium adult ESL conversation lessons built around real art, literature, science, philosophy and news. CEFR-aligned A1-C2. No textbook filler — every lesson starts with a real cultural source.",
   keywords: [
     "online ESL course",
     "adult ESL conversation lessons",
-    "learn English through film",
-    "learn English with music",
     "ESL speaking practice",
     "CEFR English course online",
     "A1 to C2 English lessons",
@@ -45,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sparks — Source-Led ESL Conversation Lessons",
     description:
-      "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned A1-C2. No textbook filler.",
+      "Premium adult ESL conversation lessons built around real art, literature, science, philosophy and news. CEFR-aligned A1-C2. No textbook filler.",
     siteName: "Sparks",
     url: SITE_URL,
     type: "website",
@@ -55,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sparks — Source-Led ESL Conversation Lessons",
     description:
-      "Premium adult ESL conversation lessons built around real art, film, music, science, philosophy, literature and news. CEFR-aligned A1-C2. No textbook filler.",
+      "Premium adult ESL conversation lessons built around real art, literature, science, philosophy and news. CEFR-aligned A1-C2. No textbook filler.",
   },
 };
 
@@ -66,7 +64,7 @@ const organizationLd = {
   name: "Sparks",
   url: SITE_URL,
   description:
-    "Source-led ESL conversation lessons built around real art, film, music, science, philosophy, literature, and news.",
+    "Source-led ESL conversation lessons built around real art, literature, science, philosophy, and news.",
   areaServed: "Worldwide",
   teaches: "English as a Second Language",
 };
@@ -86,7 +84,7 @@ const courseLd = {
   "@type": "Course",
   name: "Sparks ESL Conversation Course",
   description:
-    "Source-led English conversation lessons for adults, built around real art, film, music, science, philosophy, literature, and news. CEFR-aligned A1 to C2.",
+    "Source-led English conversation lessons for adults, built around real art, literature, science, philosophy, and news. CEFR-aligned A1 to C2.",
   provider: {
     "@type": "EducationalOrganization",
     name: "Sparks",
@@ -117,23 +115,7 @@ const faqLd = {
       name: "What is source-led English learning?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Source-led learning uses a real cultural artifact — a painting, a song, a film scene, a news story — as the spine of a language lesson. Students acquire vocabulary and grammar through the source rather than from a textbook unit.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Can you learn English through film?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Film scenes supply natural spoken models, emotional context, and discussion fuel. A single scene can power a 60-minute lesson: prediction, comprehension, language extraction, and extended discussion all emerge from the same clip.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Can you learn English through music?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Song lyrics deliver rhythm, repetition, and emotional hooks that aid retention. The key is selecting songs whose language maps to a specific CEFR level and building tasks around the meaning, not just gap-fills.",
+        text: "Source-led learning uses a real cultural artifact — a painting, poem, study, philosophical question, or news story — as the spine of a language lesson. Students acquire vocabulary and grammar through the source rather than from a textbook unit.",
       },
     },
     {
