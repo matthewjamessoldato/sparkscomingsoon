@@ -8,11 +8,12 @@
 
 import { useEffect, useRef, useState } from "react";
 
+// Mirrors the main product hero's rotator word list.
 const WORDS = [
   "a painting",
   "a poem",
-  "a study",
   "a headline",
+  "a cultural habit",
   "a big question",
   "something real",
 ];
@@ -50,7 +51,7 @@ export function RotatingWord() {
   }, []);
 
   return (
-    <span className="rot-wrap">
+    <span className="rot-wrap" aria-hidden="true">
       <span className={"rot-word rot-" + phase}>{word}</span>
       <span className="rot-accent">.</span>
     </span>

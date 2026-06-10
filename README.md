@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sparks — Coming Soon
 
-## Getting Started
+The pre-launch landing page for [Sparks](https://sparksesl.com): source-led
+English conversation lessons for adult classes. A static Next.js App Router
+page with three small client islands (rotating hero word, scroll reveal,
+waitlist form) and a Resend-backed waitlist.
 
-First, run the development server:
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy `.env.example` to `.env.local` (never commit it) and set:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable             | Purpose                                                  |
+| -------------------- | -------------------------------------------------------- |
+| `RESEND_API_KEY`     | Resend API key — without it the form succeeds silently   |
+| `SEND_FROM`          | Verified sender, e.g. `Sparks <hello@sparksesl.com>`     |
+| `RESEND_AUDIENCE_ID` | Audience that collects every signup                      |
+| `ALLOWED_ORIGINS`    | Optional extra origins allowed to call the server action |
 
-## Learn More
+## Syncing imagery from the main Spark repo
 
-To learn more about Next.js, take a look at the following resources:
+All lesson artwork is generated from the main repo's canonical thumbnails
+(`../spark/web/public/illustrations/specials/`). When lessons change upstream:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+bash scripts/sync-assets.sh   # requires cwebp, ffmpeg, sips (macOS)
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This regenerates `public/illustrations/mosaic/` (480px hero tiles),
+`public/illustrations/cards/` (1920px gallery cards) and
+`app/opengraph-image.jpg`, and fails if a slug listed in the script no longer
+exists upstream. If canon moved (lessons added/retired, levels changed), also
+update the hardcoded lists and copy in `app/page.tsx` and the slug arrays in
+`scripts/sync-assets.sh`.
 
-## Deploy on Vercel
+## Safety posture
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Strict security headers + CSP in `next.config.ts` (no third-party origins).
+- The waitlist server action (`app/actions.ts`) validates and throttles
+  server-side: origin check, honeypot, email validation, per-IP and per-email
+  rate limits (in-memory, best-effort on serverless), 8kb action body limit.
+- No analytics, no cookies, no client-side data collection.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy
+
+Vercel project, domain `sparksesl.com`. Legal pages live at `/legal/privacy`
+and `/legal/terms` (with `/privacy` and `/terms` redirecting).

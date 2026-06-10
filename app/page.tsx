@@ -3,7 +3,8 @@
 //
 // Static server component with small client islands for the rotating hero word,
 // scroll reveal, and Resend-wired waitlist form. Imagery is the current Sparks
-// lesson thumbnail set copied from the main Spark repo under /public/illustrations.
+// lesson thumbnail set, downscaled from the main Spark repo by
+// scripts/sync-assets.sh into /public/illustrations/{mosaic,cards}.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { RotatingWord } from "./RotatingWord";
@@ -12,49 +13,75 @@ import { WaitlistForm } from "./WaitlistForm";
 import "./soon.css";
 
 /* ── Hero mosaic tiles ───────────────────────────────────────────────────
-   Canonical current Spark lesson thumbnails, pulled from the main repo:
-   /illustrations/specials/<family>/<lesson-id>/thumb.webp. ─────────────── */
+   Canonical current Spark lesson thumbnails across all six public families,
+   pre-cropped square and downscaled by scripts/sync-assets.sh. The slug order
+   matches the script and interleaves families so no two neighbours match —
+   including across the wrap when the set repeats. ──────────────────────── */
 const MOSAIC = [
-  "/illustrations/specials/art/art-the-great-wave-off-kanagawa/thumb.webp",
-  "/illustrations/specials/art/art-mona-lisa/thumb.webp",
-  "/illustrations/specials/art/art-the-starry-night/thumb.webp",
-  "/illustrations/specials/news/news-a-cathedral-burned-1-billion-arrived-in-48-hours/thumb.webp",
-  "/illustrations/specials/philosophy/philosophy-the-myth-of-sisyphus/thumb.webp",
-  "/illustrations/specials/literature/literature-sonnet-18/thumb.webp",
-  "/illustrations/specials/science/science-half-the-room-misses-the-gorilla/thumb.webp",
-  "/illustrations/specials/art/art-girl-with-a-pearl-earring/thumb.webp",
-  "/illustrations/specials/news/news-four-minutes-broken-at-last/thumb.webp",
-  "/illustrations/specials/art/art-the-raft-of-the-medusa/thumb.webp",
-  "/illustrations/specials/news/news-33-men-69-days-all-safe/thumb.webp",
-  "/illustrations/specials/philosophy/philosophy-the-trolley-problem/thumb.webp",
-  "/illustrations/specials/art/art-wanderer-above-the-sea-of-fog/thumb.webp",
-  "/illustrations/specials/science/science-sleep-loss-is-like-being-drunk/thumb.webp",
-  "/illustrations/specials/art/art-saturn-devouring-his-son/thumb.webp",
-  "/illustrations/specials/literature/literature-hamlet-to-be-or-not-to-be/thumb.webp",
-  "/illustrations/specials/art/art-water-lilies/thumb.webp",
-  "/illustrations/specials/news/news-tested-clean-drove-dirty-11-million-cars/thumb.webp",
-  "/illustrations/specials/art/art-the-creation-of-adam/thumb.webp",
-  "/illustrations/specials/philosophy/philosophy-the-ship-of-theseus/thumb.webp",
-  "/illustrations/specials/art/art-the-milkmaid/thumb.webp",
-  "/illustrations/specials/art/art-the-tower-of-babel/thumb.webp",
-  "/illustrations/specials/art/art-olympia/thumb.webp",
-  "/illustrations/specials/literature/literature-if/thumb.webp",
-  "/illustrations/specials/news/news-lost-on-a-train-found-on-google-earth/thumb.webp",
-  "/illustrations/specials/science/science-walking-through-a-doorway-makes-you-forget/thumb.webp",
-  "/illustrations/specials/philosophy/philosophy-who-do-you-owe-first/thumb.webp",
-  "/illustrations/specials/science/science-what-feels-like-learning-isnt-learning/thumb.webp",
-  "/illustrations/specials/science/science-what-did-the-marshmallow-test-actually-show/thumb.webp",
-  "/illustrations/specials/philosophy/philosophy-the-experience-machine/thumb.webp",
-  "/illustrations/specials/philosophy/philosophy-the-drowning-child/thumb.webp",
-  "/illustrations/specials/literature/literature-stopping-by-woods-on-a-snowy-evening/thumb.webp",
-  "/illustrations/specials/literature/literature-the-tortoise-and-the-hare/thumb.webp",
-  "/illustrations/specials/art/art-the-last-supper/thumb.webp",
-  "/illustrations/specials/art/art-fountain/thumb.webp",
-  "/illustrations/specials/news/news-one-hundred-million-users-two-years-the-argument-we-couldnt-postpone/thumb.webp",
-  "/illustrations/specials/news/news-the-art-that-shredded-itself/thumb.webp",
-];
+  "art-the-great-wave-off-kanagawa",
+  "news-a-cathedral-burned-1-billion-arrived-in-48-hours",
+  "philosophy-the-myth-of-sisyphus",
+  "literature-sonnet-18",
+  "science-half-the-room-misses-the-gorilla",
+  "culture-the-queue",
+  "art-mona-lisa",
+  "news-four-minutes-broken-at-last",
+  "philosophy-the-trolley-problem",
+  "art-the-starry-night",
+  "science-sleep-loss-is-like-being-drunk",
+  "literature-hamlet-to-be-or-not-to-be",
+  "art-girl-with-a-pearl-earring",
+  "news-33-men-69-days-all-safe",
+  "culture-the-baguette",
+  "philosophy-the-ship-of-theseus",
+  "art-the-raft-of-the-medusa",
+  "science-walking-through-a-doorway-makes-you-forget",
+  "literature-if",
+  "art-wanderer-above-the-sea-of-fog",
+  "news-tested-clean-drove-dirty-11-million-cars",
+  "philosophy-who-do-you-owe-first",
+  "art-saturn-devouring-his-son",
+  "culture-shoes-at-the-door",
+  "science-what-feels-like-learning-isnt-learning",
+  "literature-stopping-by-woods-on-a-snowy-evening",
+  "art-water-lilies",
+  "news-lost-on-a-train-found-on-google-earth",
+  "philosophy-the-experience-machine",
+  "art-the-creation-of-adam",
+  "science-what-did-the-marshmallow-test-actually-show",
+  "culture-red-envelopes",
+  "literature-the-tortoise-and-the-hare",
+  "art-the-milkmaid",
+  "news-the-art-that-shredded-itself",
+  "philosophy-the-drowning-child",
+  "art-the-tower-of-babel",
+  "science-why-your-favorite-song-gives-you-chills",
+  "literature-the-owl-and-the-pussycat",
+  "art-olympia",
+  "culture-personal-space",
+  "news-one-hundred-million-users-two-years-the-argument-we-couldnt-postpone",
+  "philosophy-the-chinese-room",
+  "art-the-last-supper",
+  "science-even-when-you-know-its-a-placebo-it-works",
+  "art-las-meninas",
+  "news-a-dog-2-500-miles-6-months-alone",
+  "philosophy-the-banality-of-evil",
+  "art-the-kiss",
+  "culture-taste-and-status",
+  "art-judith-slaying-holofernes",
+  "science-nobodys-watching-you",
+  "art-fountain",
+  "news-a-man-a-field-a-kings-gold",
+].map((slug) => `/illustrations/mosaic/${slug}.webp`);
 
-const SOURCES = ["art", "literature", "science", "philosophy", "news"] as const;
+const SOURCES = [
+  "art",
+  "science",
+  "philosophy",
+  "literature",
+  "culture",
+  "news",
+] as const;
 
 /* ── Source gallery ─────────────────────────────────────────────────────── */
 type GalleryCard = {
@@ -69,62 +96,64 @@ type GalleryCard = {
 };
 const GALLERY: GalleryCard[] = [
   {
-    img: "/illustrations/specials/art/art-the-great-wave-off-kanagawa/thumb.webp",
+    img: "/illustrations/cards/art-the-great-wave-off-kanagawa.webp",
     fam: "art",
     label: "Art",
     color: "var(--c-art)",
     src: "The Great Wave off Kanagawa",
-    meta: "Hokusai, c. 1830 · A2",
-    alt: "The Great Wave off Kanagawa by Hokusai",
+    meta: "Katsushika Hokusai, c. 1830 · A2",
+    alt: "The Great Wave off Kanagawa by Hokusai, framed on a gallery wall",
   },
   {
-    img: "/illustrations/specials/literature/literature-sonnet-18/thumb.webp",
+    img: "/illustrations/cards/literature-sonnet-18.webp",
     fam: "literature",
     label: "Literature",
     color: "var(--c-literature)",
     src: "Sonnet 18",
-    meta: "William Shakespeare, 1609 · B2",
-    alt: "A warm illustrated scene for Shakespeare's Sonnet 18",
+    meta: "William Shakespeare, 1609 · C1",
+    alt: "Cut-out portrait of William Shakespeare on a deep blue ground",
   },
   {
-    img: "/illustrations/specials/news/news-33-men-69-days-all-safe/thumb.webp",
+    img: "/illustrations/cards/news-33-men-69-days-all-safe.webp",
     fam: "news",
     label: "News",
     color: "var(--c-news)",
-    src: "The 33 men under the mountain",
+    src: "33 men, 69 days, all safe",
     meta: "The 2010 Chile mine rescue · A2",
-    alt: "Chilean miners being rescued from underground in 2010",
+    alt: "The Fénix rescue capsule from the 2010 Chile mine rescue, drawn as a cut-out on red",
   },
   {
-    img: "/illustrations/specials/science/science-half-the-room-misses-the-gorilla/thumb.webp",
+    img: "/illustrations/cards/science-half-the-room-misses-the-gorilla.webp",
     fam: "science",
     label: "Science",
     color: "var(--c-science)",
     src: "Half the Room Misses the Gorilla",
-    meta: "Selective attention · C1",
-    alt: "The invisible gorilla selective-attention experiment",
+    meta: "Simons & Chabris, 1999 · C1",
+    alt: "A gorilla hidden inside a basketball, drawn as a cut-out on green",
   },
   {
-    img: "/illustrations/specials/philosophy/philosophy-the-myth-of-sisyphus/thumb.webp",
+    img: "/illustrations/cards/philosophy-the-myth-of-sisyphus.webp",
     fam: "philosophy",
     label: "Philosophy",
     color: "var(--c-philosophy)",
-    src: "Sisyphus Must Be Happy",
+    src: "The Myth of Sisyphus",
     meta: "Albert Camus, 1942 · C1",
-    alt: "An engraving of Sisyphus pushing his boulder up the mountain",
+    alt: "Cut-out portrait of Albert Camus on a purple ground",
   },
   {
-    img: "/illustrations/specials/literature/literature-if/thumb.webp",
-    fam: "literature",
-    label: "Literature",
-    color: "var(--c-literature)",
-    src: "If",
-    meta: "Rudyard Kipling, 1910 · C1",
-    alt: "A warm illustrated lesson thumbnail for Kipling's poem If",
+    img: "/illustrations/cards/culture-the-queue.webp",
+    fam: "culture",
+    label: "Culture",
+    color: "var(--c-culture)",
+    src: "The Queue",
+    meta: "Waiting your turn · B2",
+    alt: "A take-a-number ticket dispenser, drawn as a cut-out on gold",
   },
 ];
 
-/* ── New flexible lesson showcase: Sonnet 18 ────────────────────────────── */
+/* ── Lesson showcase: Sonnet 18 ─────────────────────────────────────────
+   The real nine-stage Spark, condensed from the shipping C1 deck in the main
+   repo (stage names, timings and tasks are the actual lesson's). ────────── */
 type ShowcaseSlide = {
   n: string;
   k: string;
@@ -137,79 +166,81 @@ type ShowcaseSlide = {
 const SHOWCASE_SLIDES: ShowcaseSlide[] = [
   {
     n: "01",
-    k: "Lead-in",
-    h: "What makes something last forever?",
-    time: "5 min",
-    quote:
-      "Can you think of something made by a human being that you believe will still be remembered in 500 years?",
+    k: "Title",
+    h: "Sonnet 18",
+    time: "1 min",
+    body:
+      "Shakespeare's sonnet — and the strange promise it makes: that a poem can keep someone alive forever.",
   },
   {
     n: "02",
-    k: "Pre-reading",
-    h: "Key words before you read",
-    time: "5 min",
-    lang: ["eternal", "temperate", "complexion", "fair", "fade"],
+    k: "Hook",
+    h: "Think of one person you love.",
+    time: "4 min",
+    quote:
+      "What would you compare them to? Not a summer's day — something of your own. A season, a place, a kind of weather, a piece of music?",
   },
   {
     n: "03",
-    k: "Source text",
-    h: "Sonnet 18 — William Shakespeare",
-    time: "5 min",
+    k: "Source",
+    h: "The poem, read together",
+    time: "13 min",
     quote:
       "Shall I compare thee to a summer's day? Thou art more lovely and more temperate.",
+    body:
+      "He starts to compare her to summer — then stops, because summer loses. The claim worth sitting with: art outlasts the thing it's about. Who is more alive on this slide — the woman, or Shakespeare?",
   },
   {
     n: "04",
-    k: "Comprehension",
-    h: "What does Shakespeare actually say?",
-    time: "7 min",
+    k: "Main task",
+    h: "What do we actually know about her?",
+    time: "14 min",
     body:
-      "Students answer from the poem, not from memory: the summer comparison, the short lease of beauty, the sun metaphor, and the final couplet.",
+      "Look at the poem — is there a single real detail? A face, a name, a thing she said? Verdict: did art make her last, or did it quietly replace her with itself?",
   },
   {
     n: "05",
-    k: "Language focus",
-    h: "Contrast and certainty",
-    time: "8 min",
-    body:
-      "The language comes from the source: contrast, concession, and absolute certainty.",
+    k: "Useful language",
+    h: "Arguing whether something truly lasts",
+    time: "7 min",
     lang: [
-      "Unlike…, you…",
-      "While…may fade, …will endure",
-      "As long as…, so too will…",
+      "It's not her that survives, so much as…",
+      "It immortalises the feeling rather than the person.",
+      "That's preservation in name only.",
+      "The art has eclipsed what it was meant to honour.",
     ],
   },
   {
     n: "06",
-    k: "Deeper discussion",
-    h: "What is Shakespeare really claiming?",
-    time: "10 min",
+    k: "Practice",
+    h: "Kept, or just gestured at?",
+    time: "5 min",
     body:
-      "Small groups choose a question: arrogant or romantic? More powerful without a named person? Does art really outlive beauty?",
+      "Quick takes with the new language: a statue of a general nobody can identify, a love song with the singer long dead, a stranger's face in a junk-shop photo, a name carved into a park bench.",
   },
   {
     n: "07",
-    k: "Critical thinking",
-    h: "Timeless, or showing its age?",
-    time: "10 min",
+    k: "Discussion",
+    h: "Flattered — or slightly erased?",
+    time: "4 min",
     quote:
-      "Half the class argues timeless. Half argues dated. Prepare for two minutes, then debate.",
+      "If a poem this good were written about you, would you feel flattered — or reduced to one line of praise?",
   },
   {
     n: "08",
-    k: "Production task",
-    h: "A modern version",
-    time: "8 min",
+    k: "Final task",
+    h: "Choose how you'd want to last",
+    time: "9 min",
     body:
-      "Rewrite the argument of Sonnet 18 for today. What would you compare a person to instead of a summer's day?",
+      "A poem, a photo, or a song — decide what your choice keeps and what it quietly throws away. Then finish out loud: “Don't remember my face. Remember that I…”",
   },
   {
     n: "09",
-    k: "Reflection",
-    h: "One minute, one thought",
-    time: "2 min",
-    quote:
-      "What is one idea from today's lesson — from the poem or from the discussion — that you want to keep thinking about?",
+    k: "Lesson quiz",
+    h: "Back through the poem",
+    time: "3 min",
+    body:
+      "Six open questions — why summer loses the comparison, the turn at line 9, and a verdict every student has to commit to.",
   },
 ];
 
@@ -225,8 +256,9 @@ export default function SoonPage() {
           {/* Plain <img> (not next/image): the image wall relies
               on every tile keeping a stable square crop. The images are
               repeated so the drifting wall always fills wide and tall screens;
-              duplicates are served from cache, and the vignette hides the seam. */}
-          {[...MOSAIC, ...MOSAIC, ...MOSAIC, ...MOSAIC].map((src, i) => {
+              duplicates are served from cache, and the vignette hides the seam.
+              The first pass loads eagerly; the repeats can lazy-load. */}
+          {[...MOSAIC, ...MOSAIC, ...MOSAIC].map((src, i) => {
             const delay = 90 + ((i * 137) % 1040);
 
             return (
@@ -235,7 +267,9 @@ export default function SoonPage() {
                 key={`${src}-${i}`}
                 src={src}
                 alt=""
-                loading="eager"
+                width={480}
+                height={480}
+                loading={i < MOSAIC.length ? "eager" : "lazy"}
                 decoding="async"
                 draggable={false}
                 style={{ animationDelay: `${delay}ms` }}
@@ -251,16 +285,24 @@ export default function SoonPage() {
             Source-led English for adult classes
           </span>
           <span className="wordmark fx d1">
-            sparks<span className="dot">.</span>
+            Sparks<span className="dot">.</span>
           </span>
-          <h1 className="hero-h1 fx d2">
-            <span className="lead-in">Walk into class with</span>
+          {/* The rotator is decorative for assistive tech: the h1 carries a
+              stable label while the cycling words stay aria-hidden. */}
+          <h1
+            className="hero-h1 fx d2"
+            aria-label="Walk into class with something real."
+          >
+            <span className="lead-in" aria-hidden="true">
+              Walk into class with
+            </span>
             <RotatingWord />
           </h1>
           <p className="hero-lede fx d3">
             Coming soon: ready-to-teach conversation lessons for adults, built
-            around real sources. Each Spark becomes the hour its source needs —
-            up to nine clear slides, from A1 to C2.
+            on real art, science, philosophy, literature, culture and news.
+            Each Spark becomes the hour its source needs — up to nine clear
+            slides, 60 minutes, from A1 to C2.
           </p>
           <p className="hero-sublede fx d3">
             Join the waitlist and get the first teacher-ready lessons when we open.
@@ -299,11 +341,12 @@ export default function SoonPage() {
             A real source becomes a <span>speaking hour</span>.
           </h2>
           <p className="idea-body reveal">
-            Sparks turns art, literature, science, philosophy and news into
-            complete adult conversation lessons. The source sets the route:
-            sometimes vocabulary first, sometimes the text immediately,
-            sometimes a debate, a rewrite, or a single question that carries
-            the room.
+            Sparks turns art, science, philosophy, literature, culture and
+            news into complete adult conversation lessons. Every Spark walks
+            the same teachable spine — a hook, the source itself, one big
+            task, language worth keeping, discussion, a final task — and the
+            source decides what fills it: a museum mount, a newspaper column,
+            a study&apos;s key finding, a question that carries the room.
           </p>
 
           <div className="idea-grid reveal">
@@ -311,9 +354,9 @@ export default function SoonPage() {
               <span className="n">A · Source first</span>
               <h3>The material leads</h3>
               <p>
-                A sonnet should not move like a science study. A headline
-                should not move like a painting. The source sets the rhythm,
-                the language, and the task.
+                A sonnet is not a science study. A headline is not a painting.
+                The source sets the imagery, the language, and what the room
+                ends up arguing about.
               </p>
             </div>
             <div className="idea-cell">
@@ -344,11 +387,12 @@ export default function SoonPage() {
               <div className="kicker" style={{ marginBottom: 0 }}>
                 02 · Where we start
               </div>
-              <h2 className="sec-title">Five places a lesson can begin.</h2>
+              <h2 className="sec-title">Six places a lesson can begin.</h2>
             </div>
             <p className="sec-note">
-              A painting, poem, study, question or headline can each become a
-              complete hour of adult speaking.
+              A painting, a poem, a headline, a study, a question or a
+              cultural habit can each become a complete hour of adult
+              speaking.
             </p>
           </div>
 
@@ -378,32 +422,33 @@ export default function SoonPage() {
       <section className="section anatomy" id="anatomy">
         <div className="wrap">
           <div className="kicker reveal" style={{ marginBottom: 48 }}>
-            03 · Example rebuilt lesson
+            03 · Inside a real lesson
           </div>
           <div className="ana-grid">
             <div className="ana-figure reveal">
               <div className="ana-mount">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/illustrations/specials/literature/literature-sonnet-18/thumb.webp"
-                  alt="Illustrated portrait of William Shakespeare on a dark blue background"
+                  src="/illustrations/cards/literature-sonnet-18.webp"
+                  alt="Cut-out portrait of William Shakespeare on a deep blue ground"
                 />
               </div>
               <div className="ana-cap">
                 <span className="dot" />
-                Literature · B2 speaking lesson
+                Literature · C1 speaking lesson
               </div>
               <div className="ana-figtitle">
-                Sonnet 18: what makes something last forever?
+                Sonnet 18: can a poem keep someone alive forever?
               </div>
               <p className="ana-figsub">
-                A nine-slide lesson from the new authoring direction: source
-                text, vocabulary only where useful, live discussion, critical
-                thinking, and a production task that brings the poem into today.
+                The real shipping Spark, slide for slide: a hook, the full
+                sonnet, one big task, language worth keeping, guided practice,
+                open discussion, a final task that gets personal, and a quiz
+                back through the poem.
               </p>
               <div className="ana-meta">
-                <span className="metachip">B2</span>
-                <span className="metachip">9 slides max</span>
+                <span className="metachip">C1</span>
+                <span className="metachip">9 slides</span>
                 <span className="metachip">60 min</span>
                 <span className="metachip">Source-shaped</span>
               </div>
@@ -413,24 +458,28 @@ export default function SoonPage() {
                   <span>Slide 8 / 9</span>
                 </div>
                 <div className="class-screen">
-                  <span className="class-phase">Production task</span>
-                  <h4>Your turn: a modern version</h4>
+                  <span className="class-phase">Final task</span>
+                  <h4>Choose how you&apos;d want to last</h4>
                   <p>
-                    Rewrite the argument of Sonnet 18 for today. What would you
-                    compare a person to instead of a summer&apos;s day?
+                    A poem, a photo, or a song. Decide, defend it, then finish
+                    out loud: &ldquo;Don&apos;t remember my face. Remember
+                    that I&hellip;&rdquo;
                   </p>
                 </div>
                 <div className="class-support">
                   <div>
                     <span>Teacher notes</span>
                     <p>
-                      Pair students first. Listen for contrast and certainty
-                      structures before opening the room.
+                      Pair students first and push for the why: what does each
+                      choice keep, and what does it quietly throw away?
                     </p>
                   </div>
                   <div>
                     <span>Worksheet language</span>
-                    <p>Unlike..., While... may fade, As long as...</p>
+                    <p>
+                      It&apos;s not her that survives, so much as&hellip; ·
+                      That&apos;s preservation in name only.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -482,10 +531,11 @@ export default function SoonPage() {
       <footer className="footer">
         <div className="wrap">
           <span className="mk">
-            sparks<span className="dot">.</span>
+            Sparks<span className="dot">.</span>
           </span>
           <span className="meta">
-            Source-led English · Art · Literature · Science · Philosophy · News
+            Source-led English · Art · Science · Philosophy · Literature ·
+            Culture · News
           </span>
           <span className="meta">
             © 2026 Sparks · <a href="/legal/privacy">Privacy</a> ·{" "}

@@ -40,14 +40,35 @@ const IP_WINDOW_MS = 60 * 60 * 1000;
 const EMAIL_WINDOW_MS = 24 * 60 * 60 * 1000;
 const MAX_IP_SUBMISSIONS = 5;
 const MAX_EMAIL_SUBMISSIONS = 3;
+// In-memory buckets: per-instance on serverless, so a best-effort throttle
+// rather than a hard global limit. MAX_BUCKETS caps memory if a botnet cycles
+// keys; expired entries are swept before anything new is inserted at the cap.
+const MAX_BUCKETS = 10_000;
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
 
 function hashValue(value: string) {
   return createHash("sha256").update(value).digest("hex");
 }
 
+function pruneRateBuckets(now: number) {
+  for (const [key, bucket] of rateBuckets) {
+    if (bucket.resetAt <= now) rateBuckets.delete(key);
+  }
+  // Still over the cap after sweeping: drop oldest-inserted entries. Refusing
+  // new entries instead would let an attacker lock out fresh visitors.
+  if (rateBuckets.size >= MAX_BUCKETS) {
+    for (const key of rateBuckets.keys()) {
+      if (rateBuckets.size < MAX_BUCKETS) break;
+      rateBuckets.delete(key);
+    }
+  }
+}
+
 function consumeRateLimit(key: string, limit: number, windowMs: number) {
   const now = Date.now();
+  if (rateBuckets.size >= MAX_BUCKETS && !rateBuckets.has(key)) {
+    pruneRateBuckets(now);
+  }
   const bucket = rateBuckets.get(key);
 
   if (!bucket || bucket.resetAt <= now) {
@@ -151,14 +172,15 @@ export async function joinWaitlist(
         html: `
           <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; padding: 40px 20px; color: #161513;">
             <p style="font-size: 22px; font-weight: 500; margin: 0 0 16px;">
-              sparks<span style="color: #d97757;">.</span>
+              Sparks<span style="color: #ff6a35;">.</span>
             </p>
             <p style="font-size: 16px; line-height: 1.6; margin: 0 0 12px;">
               You're in. We'll let you know the moment Sparks launches.
             </p>
             <p style="font-size: 15px; line-height: 1.6; color: #4a4742; margin: 0 0 24px;">
-              Source-led English lessons built around real art, literature,
-              science, philosophy, and news. No filler. No fluff. Just honest.
+              Source-led English lessons built on real art, science,
+              philosophy, literature, culture, and news. No filler — every
+              lesson starts from a real source.
             </p>
             <p style="font-size: 13px; color: #6b6660; margin: 0;">
               — The Sparks team

@@ -30,6 +30,7 @@
   --c-science: #3fbe8e;
   --c-philosophy: #ae8fdb;
   --c-literature: #76a8e8;
+  --c-culture: #dab95e;
 }
 *,
 *::before,
@@ -142,7 +143,8 @@ img {
   /* Uniform gallery-wall grid — every tile an identical square, cover-cropped.
      Replaces the old `columns` masonry (ragged heights + gaps + black space).
      auto-fill at 200px keeps enough rows to fill 100svh on tall/wide displays
-     given the 96-tile (3×) set; the grid clips cleanly under the vignette. */
+     given the 162-tile (54 × 3) set; the grid clips cleanly under the
+     vignette. */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-auto-rows: 1fr;
@@ -261,7 +263,6 @@ img {
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.2em;
-  text-transform: lowercase;
   color: var(--t55);
   margin-bottom: 18px;
 }

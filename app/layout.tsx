@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Newsreader, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -19,10 +19,14 @@ const inter = Inter({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#080a09",
+};
+
 export const metadata: Metadata = {
   title: "Sparks — Source-Led ESL Conversation Lessons | Art, Literature & More",
   description:
-    "Premium adult ESL conversation lessons built around real art, literature, science, philosophy and news. CEFR-aligned A1-C2. No textbook filler — every lesson starts with a real cultural source.",
+    "Premium adult ESL conversation lessons built around real art, science, philosophy, literature, culture and news. CEFR-aligned A1-C2. No textbook filler — every lesson starts with a real cultural source.",
   keywords: [
     "online ESL course",
     "adult ESL conversation lessons",
@@ -34,6 +38,7 @@ export const metadata: Metadata = {
     "English conversation class online",
     "source-based English lessons",
     "English lessons through literature",
+    "culture-based English lessons",
     "premium ESL subscription",
     "Sparks ESL",
   ],
@@ -43,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sparks — Source-Led ESL Conversation Lessons",
     description:
-      "Premium adult ESL conversation lessons built around real art, literature, science, philosophy and news. CEFR-aligned A1-C2. No textbook filler.",
+      "Premium adult ESL conversation lessons built around real art, science, philosophy, literature, culture and news. CEFR-aligned A1-C2. No textbook filler.",
     siteName: "Sparks",
     url: SITE_URL,
     type: "website",
@@ -53,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sparks — Source-Led ESL Conversation Lessons",
     description:
-      "Premium adult ESL conversation lessons built around real art, literature, science, philosophy and news. CEFR-aligned A1-C2. No textbook filler.",
+      "Premium adult ESL conversation lessons built around real art, science, philosophy, literature, culture and news. CEFR-aligned A1-C2. No textbook filler.",
   },
 };
 
@@ -64,7 +69,7 @@ const organizationLd = {
   name: "Sparks",
   url: SITE_URL,
   description:
-    "Source-led ESL conversation lessons built around real art, literature, science, philosophy, and news.",
+    "Source-led ESL conversation lessons built around real art, science, philosophy, literature, culture, and news.",
   areaServed: "Worldwide",
   teaches: "English as a Second Language",
 };
@@ -84,7 +89,7 @@ const courseLd = {
   "@type": "Course",
   name: "Sparks ESL Conversation Course",
   description:
-    "Source-led English conversation lessons for adults, built around real art, literature, science, philosophy, and news. CEFR-aligned A1 to C2.",
+    "Source-led English conversation lessons for adults, built around real art, science, philosophy, literature, culture, and news. CEFR-aligned A1 to C2.",
   provider: {
     "@type": "EducationalOrganization",
     name: "Sparks",
